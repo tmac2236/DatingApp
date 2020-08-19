@@ -17,6 +17,7 @@ namespace DatingApp.API.Controllers
             _context = context;
         }
         //http://localhost:5000/api/test/getTest
+        [AllowAnonymous]
         [HttpGet("getTest")]
         public async Task<IActionResult> GetTestJustName()
         {
