@@ -44,6 +44,7 @@ namespace DatingApp.API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
+
             var userFromRepo = await _authDAO.Login(userForLoginDto.Account.ToLower(), userForLoginDto.Password);
 
             if (userFromRepo == null)
@@ -53,11 +54,11 @@ namespace DatingApp.API.Controllers
             {
                 new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
                 new Claim(ClaimTypes.Name, userFromRepo.Account)
-            };
+                };
             var tokenName = _config.GetSection("AppSettings:Token").Value;
             var key = new SymmetricSecurityKey(Encoding.UTF8
                 .GetBytes(tokenName));
-            
+
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
             var tokenDescriptor = new SecurityTokenDescriptor
@@ -70,10 +71,12 @@ namespace DatingApp.API.Controllers
             var tokenHandler = new JwtSecurityTokenHandler();
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            
-            return Ok( new {
+
+            return Ok(new
+            {
                 token = tokenHandler.WriteToken(token)
             });
+
         }
     }
 }
