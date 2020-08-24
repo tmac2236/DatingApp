@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DatingApp.API.Data.Interface;
 using DatingApp.API.Models;
@@ -6,10 +7,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.API.Data.Repository
 {
-    public class AuthRepository : IAuthRepository
+    public class UserRepository : IUserRepository
     {
         private readonly DataContext _context;
-        public AuthRepository(DataContext context)
+        public UserRepository(DataContext context)
         {
             _context = context;
 
@@ -17,10 +18,10 @@ namespace DatingApp.API.Data.Repository
         public async Task<User> Login(string account, string password)
         {
             var user = await _context.User.FirstOrDefaultAsync(x => x.Account == account);
-            if(user == null)
+            if (user == null)
                 return null;
-            
-            if(!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+
+            if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
                 return null;
 
             return user;
@@ -31,9 +32,9 @@ namespace DatingApp.API.Data.Repository
             using (var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))
             {
                 var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-                for(int i = 0; i < computedHash.Length; i++)
+                for (int i = 0; i < computedHash.Length; i++)
                 {
-                    if(computedHash[i] != passwordHash[i]) return false;
+                    if (computedHash[i] != passwordHash[i]) return false;
                 }
             }
             return true;
@@ -41,8 +42,8 @@ namespace DatingApp.API.Data.Repository
 
         public async Task<User> Register(User user, string password)
         {
-            byte[] passwordHash,passwordSalt;
-            CreatePasswordHash( password , out passwordHash , out passwordSalt );
+            byte[] passwordHash, passwordSalt;
+            CreatePasswordHash(password, out passwordHash, out passwordSalt);
 
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
@@ -64,11 +65,39 @@ namespace DatingApp.API.Data.Repository
 
         public async Task<bool> UserExists(string account)
         {
-            if(await _context.User.AnyAsync(x =>x.Account == account))
+            if (await _context.User.AnyAsync(x => x.Account == account))
                 return true;
 
-            return false;    
+            return false;
 
         }
+
+        public void Add<T>(T entity) where T : class
+        {
+            _context.Add(entity);
+        }
+
+        public void Delete<T>(T entity) where T : class
+        {
+            _context.Remove(entity);
+        }
+
+        public async Task<User> GetUser(int id)
+        {
+            var user = await _context.User.Include(p => p.Photos).FirstOrDefaultAsync(x => x.Id == id);
+            return user;
+        }
+
+        public async Task<IEnumerable<User>> GetUsers()
+        {
+            var users = await _context.User.Include(p => p.Photos).ToListAsync();
+            return users;
+        }
+
+        public async Task<bool> SaveAll()
+        {
+            return await _context.SaveChangesAsync() > 0 ;
+        }
+
     }
 }

@@ -14,9 +14,9 @@ namespace DatingApp.API.Controllers
 {
     public class AuthController : ApiController
     {
-        private readonly IAuthRepository _authDAO;
+        private readonly IUserRepository _authDAO;
         private readonly IConfiguration _config;
-        public AuthController(IAuthRepository authDAO, IConfiguration config)
+        public AuthController(IUserRepository authDAO, IConfiguration config)
         {
             _config = config;
             _authDAO = authDAO;
@@ -34,7 +34,8 @@ namespace DatingApp.API.Controllers
 
             var userToCreate = new User
             {
-                Account = userForRegisterDto.Account
+                Account = userForRegisterDto.Account,
+                Password = userForRegisterDto.Password
             };
             var createdUser = await _authDAO.Register(userToCreate, userForRegisterDto.Password);
 

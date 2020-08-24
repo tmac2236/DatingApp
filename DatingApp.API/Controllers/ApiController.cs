@@ -8,12 +8,6 @@ namespace DatingApp.API.Controllers
     [ApiController]
     public class ApiController : ControllerBase
     {
-        //Get api/api
-        [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
-        {
-            //throw new Exception("Test Exception");  
-            return new string[] { "value1", "value2" };
-        }
+
     }
 }
