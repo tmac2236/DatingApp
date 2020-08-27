@@ -37,6 +37,8 @@ namespace DatingApp.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //security
+            services.AddCors();
             services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SHCConnection")));
             services.AddControllers();
             /*
@@ -53,8 +55,6 @@ namespace DatingApp.API
               });
 
             services.AddAutoMapper(typeof(Startup));
-            //security
-            services.AddCors();
             //DAO
             services.AddScoped<IUserRepository, UserRepository>();
             //auth
@@ -101,16 +101,13 @@ namespace DatingApp.API
                 );
             }
 
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
-
             //security
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+            app.UseHttpsRedirection();
             //auth
             app.UseAuthentication();
+            app.UseRouting();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

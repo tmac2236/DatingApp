@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DatingApp.API.Controllers
 {
+    [Authorize]
     public class UsersController : ApiController
     {
         private readonly IUserRepository _userDAO;
