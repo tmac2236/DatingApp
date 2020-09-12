@@ -22,7 +22,7 @@
   },
   "targets": {
     ".NETCoreApp,Version=v3.1": {
-      "DFPS.API/1.0.0": {
+      "DatingApp.API/1.0.0": {
         "dependencies": {
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "7.0.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "3.1.0",
@@ -316,10 +316,10 @@
           "WindowsBase": "4.0.0.0"
         },
         "runtime": {
-          "DFPS.API.dll": {}
+          "DatingApp.API.dll": {}
         },
         "compile": {
-          "DFPS.API.dll": {}
+          "DatingApp.API.dll": {}
         }
       },
       "AutoMapper/9.0.0": {
@@ -2998,7 +2998,7 @@
     }
   },
   "libraries": {
-    "DFPS.API/1.0.0": {
+    "DatingApp.API/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

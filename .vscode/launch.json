@@ -9,7 +9,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/DFPS-API/bin/Debug/netcoreapp3.1/DFPS.API.dll",
+            "program": "${workspaceFolder}/DFPS-API/bin/Debug/netcoreapp3.1/DatingApp.API.dll",
             "args": [],
             "cwd": "${workspaceFolder}/DFPS-API",
             "stopAtEntry": false,

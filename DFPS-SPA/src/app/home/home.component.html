@@ -1,15 +1,96 @@
-<div class="container mt-5">
-  <div *ngIf="!registerMode" style="text-align: center;">
-    <h1>Find your match</h1>
-    <p class="lead">
-      Come on in to view your matches... All you need to do is sign up!
-    </p>
-    <div class="text-center">
-      <button class="btn btn-primary btn-lg mr-2" (click)="registerToggle()">
-        Register
-      </button>
-      <button class="btn btn-info btn-lg">Learn more</button>
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>GetReportData_Pass</strong>
+        </div>
+        <form class="form-horizontal" #addAuditTypeForm="ngForm">
+          <div class="card-body">
+            <div class="form-group row">
+              <div class="col-md-12">
+                <div>
+                  <label>線別</label>
+                  <input
+                    type="text"
+                    placeholder="Lean"
+                    name="qrCodeId"
+                    [(ngModel)]="sReportDataPass.lineID"
+                  />
+                  <label>鞋名</label>
+                  <input
+                    type="text"
+                    placeholder="Model Name"
+                    name="qrCodeId"
+                    [(ngModel)]="sReportDataPass.modelName"
+                  />
+                  <label>鞋型</label>
+                  <input
+                    type="text"
+                    placeholder="ModelNo"
+                    name="qrCodeId"
+                    [(ngModel)]="sReportDataPass.model"
+                  />
+
+                  <button class="btn-primary" type="button" (click)="search()">
+                    Seacrch
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
-
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered text-center">
+              <thead>
+                <tr>
+                  <th>生產點檢日期</th>
+                  <th>線別</th>
+                  <th>鞋名Model Name</th>
+                  <th>鞋型Model No</th>
+                  <th>工序代號</th>
+                  <th>工序越文</th>
+                  <th>工序中文</th>
+                  <th>組別</th>
+                  <th>工號</th>
+                  <th>姓名</th>
+                  <th>IE分數</th>
+                  <th>品保分數</th>
+                  <th>記錄時間</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container
+                  *ngFor="let item of reportDataPass; let i = index"
+                >
+                  <tr>
+                    <td>{{ item.cDate | date: "dd/MM/yyyy" }}</td>
+                    <td>{{ item.maker }}</td>
+                    <td>{{ item.sampleDesc }}</td>
+                    <td>{{ item.modelNr }}</td>
+                    <td>{{ item.processNum }}</td>
+                    <td>{{ item.processMemo }}</td>
+                    <td>{{ item.description }}</td>
+                    <td>{{ item.pordDept }}</td>
+                    <td>{{ item.workerNum }}</td>
+                    <td>{{ item.workerName }}</td>
+                    <td>{{ item.workLevel }}</td>
+                    <td>{{ item.workLevel2 }}</td>
+                    <td>{{ item.editDate }}</td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

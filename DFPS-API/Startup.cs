@@ -22,6 +22,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using DFPS.API.Helpers;
 using AutoMapper;
+using DFPS_API.Data.Repository;
 
 namespace DFPS.API
 {
@@ -57,6 +58,7 @@ namespace DFPS.API
             services.AddAutoMapper(typeof(Startup));
             //DAO
             services.AddScoped<IUserDAO, UserDAO>();
+            services.AddScoped<IReporDAO, ReporDAO>();
             //auth
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>

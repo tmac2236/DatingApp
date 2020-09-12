@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { PlanWorker } from '../_models/plan-worker';
+import { ReportDataPass } from '../_models/report-data-pass';
+import { ReportService } from '../_services/report.service';
+import { SReportDataPass } from '../_models/s_report-data-pass';
+import { AlertifyService } from '../_services/alertify.service';
 
 @Component({
   selector: 'app-home',
@@ -8,27 +13,51 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HomeComponent implements OnInit {
   registerMode = false;
-  // values:any;
+  planWorker: PlanWorker[];
+  reportDataPass: ReportDataPass[];
+  sReportDataPass = new SReportDataPass();
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private reportService: ReportService,
+    private alertify: AlertifyService
+  ) {}
 
   ngOnInit() {
-    // this.getValues();
+    //this.getValues();
   }
 
   registerToggle() {
     this.registerMode = true;
   }
-  /*
-  getValues(){
-    this.http.get('http://localhost:5000/api/test/getTest').subscribe(response => {
-      this.values = response;
-    }, error =>{
-      console.log(error);
-    });
+
+  getValues() {
+    this.http
+      .get<ReportDataPass[]>(
+        'http://localhost:5000/api/report/getReportDataPass'
+      )
+      .subscribe(
+        (response) => {
+          this.reportDataPass = response;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
-  */
+
   cancelRegisterMode(registerMode: boolean) {
     this.registerMode = registerMode;
+  }
+
+  search() {
+    console.log(this.sReportDataPass);
+    this.reportService
+      .getReportDataPass(this.sReportDataPass)
+      .subscribe((res) => {
+        this.reportDataPass = res;
+      },(error)=>{
+        this.alertify.error(error)
+      });
   }
 }

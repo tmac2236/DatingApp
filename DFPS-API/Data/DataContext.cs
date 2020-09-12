@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using DFPS.API.Models;
+using DFPS.API.DTOs;
+
 namespace DFPS.API.Data
 {
     public class DataContext : DbContext
@@ -14,5 +16,15 @@ namespace DFPS.API.Data
         public DbSet<SampleWorkBase> SampleWorkBase { get; set; }
         public DbSet<SampleWorkProcess> SampleWorkProcess { get; set; }
         public DbSet<SampleWorkWorker> SampleWorkWorker { get; set; }
+
+        //DTO
+        public DbSet<GetReportDataPassDto> GetReportDataPassDto { get; set; }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<GetReportDataPassDto>()
+                .HasNoKey();
+        }
     }
 }

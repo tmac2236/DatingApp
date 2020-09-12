@@ -1,6 +1,21 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
   <div class="container">
     <a class="navbar-brand" [routerLink]="['/home']">SHC</a>
+    <div class="btn-group" dropdown>
+      <button id="button-animated" dropdownToggle type="button" class="btn btn-secondary dropdown-toggle"
+              aria-controls="dropdown-animated">
+        Report <span class="caret"></span>
+      </button>
+      <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu"
+          role="menu" aria-labelledby="button-animated">
+        <li role="menuitem"><a class="dropdown-item" href="#">GetReportData_Pass</a></li>
+        <li role="menuitem"><a class="dropdown-item" href="#">GetReportData</a></li>
+        <li role="menuitem"><a class="dropdown-item" href="#">QueryPDModel</a></li>
+        <li role="menuitem"><a class="dropdown-item" href="#">GetNoOperationList</a></li>
+        <li role="menuitem"><a class="dropdown-item" href="#">AttendanceList </a></li>     
+        <li role="menuitem"><a class="dropdown-item" href="#">QueryChangeWorker</a></li>    
+      </ul>
+    </div>
 
     <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
       <li class="nav-item active" routerLinkActive="active">

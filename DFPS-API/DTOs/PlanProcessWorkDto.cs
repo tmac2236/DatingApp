@@ -1,6 +1,6 @@
-namespace DFPS_API.DTOs
+namespace DFPS.API.DTOs
 {
-    public class PlanProcessWork
+    public class PlanProcessWorkDto
     {
         public string? Maker { get; set; }      //組別
         public string? SampleNr { get; set; }   //型體

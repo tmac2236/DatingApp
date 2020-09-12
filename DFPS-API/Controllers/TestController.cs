@@ -1,5 +1,5 @@
 using DFPS.API.Data;
-using DFPS_API.DTOs;
+using DFPS.API.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -26,7 +26,7 @@ namespace DFPS.API.Controllers
                            join t2 in _context.SampleWorkProcess on t1.Fid equals t2.Hid
                            join t3 in _context.SampleWorkWorker on t2.Fid equals t3.Hid
                            where t1.SampleNr != null && t1.Maker != null
-                           select new PlanProcessWork
+                           select new PlanProcessWorkDto
                            {
                                Maker = t1.Maker,
                                SampleNr = t1.SampleNr,
@@ -58,7 +58,7 @@ namespace DFPS.API.Controllers
                            join t2 in _context.SampleWorkProcess on t1.Fid equals t2.Hid
                            join t3 in _context.SampleWorkWorker on t2.Fid equals t3.Hid
                            where t1.SampleNr == sampleNr && t1.Maker == maker
-                           select new PlanProcessWork
+                           select new PlanProcessWorkDto
                            {
                                Maker = t1.Maker,
                                SampleNr = t1.SampleNr,
