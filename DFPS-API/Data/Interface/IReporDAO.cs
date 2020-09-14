@@ -8,5 +8,6 @@ namespace DFPS.API.Data.Interface
     public interface IReporDAO
     {
         Task<IEnumerable<GetReportDataPassDto>> GetReportDataPass(SReportDataPassDto sReportDataPassDto);
+        Task<IEnumerable<PDModelDto>> GetPDModels(SPDModelDto sPDModelDto);
     }
 }

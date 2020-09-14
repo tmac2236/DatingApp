@@ -1,4 +1,3 @@
-
 using System;
 
 namespace DFPS.API.DTOs

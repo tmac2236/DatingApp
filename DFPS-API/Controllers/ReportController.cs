@@ -29,6 +29,15 @@ namespace DFPS.API.Controllers
             return Ok(data);
 
         }
+
+        [HttpPost("getQueryPDModel")]
+        public async Task<IActionResult> GetQueryPDModel(SPDModelDto sPDModelDto)
+        {
+            var data = await _reporDAO.GetPDModels(sPDModelDto);
+            return Ok(data);
+
+        }
+
         //http://localhost:5000/api/report/getPlan
         [HttpGet("getPlan")]
         public async Task<IActionResult> GetTestJustName()

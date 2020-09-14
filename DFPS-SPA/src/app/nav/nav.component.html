@@ -7,13 +7,12 @@
         Report <span class="caret"></span>
       </button>
       <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu"
-          role="menu" aria-labelledby="button-animated">
-        <li role="menuitem"><a class="dropdown-item" href="#">GetReportData_Pass</a></li>
-        <li role="menuitem"><a class="dropdown-item" href="#">GetReportData</a></li>
-        <li role="menuitem"><a class="dropdown-item" href="#">QueryPDModel</a></li>
-        <li role="menuitem"><a class="dropdown-item" href="#">GetNoOperationList</a></li>
-        <li role="menuitem"><a class="dropdown-item" href="#">AttendanceList </a></li>     
-        <li role="menuitem"><a class="dropdown-item" href="#">QueryChangeWorker</a></li>    
+          role="menu" aria-labelledby="button-animated" routerLinkActive="active">
+        <li role="menuitem"><a class="dropdown-item" [routerLink]="['/getReportDataPass']">GetReportData_Pass</a></li>
+        <li role="menuitem"><a class="dropdown-item" [routerLink]="['/queryPDModel']">QueryPDModel</a></li>
+        <li role="menuitem"><a class="dropdown-item" [routerLink]="['/getNoOperationList']">GetNoOperationList</a></li>
+        <li role="menuitem"><a class="dropdown-item" [routerLink]="['/attendanceList']">AttendanceList </a></li>     
+        <li role="menuitem"><a class="dropdown-item" [routerLink]="['/queryChangeWorker']">QueryChangeWorker</a></li>    
       </ul>
     </div>
 

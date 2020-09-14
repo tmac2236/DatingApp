@@ -15,18 +15,24 @@ import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { ListsComponent } from './lists/lists.component';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './report/home.component';
 import { MemeberListComponent } from './members/memeber-list/memeber-list.component';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { MessagesComponent } from './messages/messages.component';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
+import { QueryPdModelComponent } from './report/query-pd-model/query-pd-model.component';
+import { GetNoOperationListComponent } from './report/get-no-operation-list/get-no-operation-list.component';
+import { QueryChangeWorkerComponent } from './report/query-change-worker/query-change-worker.component';
 
 import { ReportService } from './_services/report.service';
 import { AuthService } from './_services/auth.service';
 import { UserService } from './_services/user.service';
 import { AlertifyService } from './_services/alertify.service';
+
+
+
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -44,6 +50,9 @@ export function tokenGetter() {
     ListsComponent,
     MessagesComponent,
     PhotoEditorComponent,
+    QueryPdModelComponent,
+    GetNoOperationListComponent,
+    QueryChangeWorkerComponent,
   ],
   imports: [
     BrowserModule,

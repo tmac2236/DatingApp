@@ -16,7 +16,6 @@ export class HomeComponent implements OnInit {
   planWorker: PlanWorker[];
   reportDataPass: ReportDataPass[];
   sReportDataPass = new SReportDataPass();
-
   constructor(
     private http: HttpClient,
     private reportService: ReportService,
@@ -24,7 +23,9 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    //this.getValues();
+    //default checkPass= 0 
+    this.sReportDataPass.checkPass = '0';
+    //
   }
 
   registerToggle() {
@@ -52,12 +53,13 @@ export class HomeComponent implements OnInit {
 
   search() {
     console.log(this.sReportDataPass);
-    this.reportService
-      .getReportDataPass(this.sReportDataPass)
-      .subscribe((res) => {
+    this.reportService.getReportDataPass(this.sReportDataPass).subscribe(
+      (res) => {
         this.reportDataPass = res;
-      },(error)=>{
-        this.alertify.error(error)
-      });
+      },
+      (error) => {
+        this.alertify.error(error);
+      }
+    );
   }
 }

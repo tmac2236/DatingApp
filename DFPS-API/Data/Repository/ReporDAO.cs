@@ -19,6 +19,20 @@ namespace DFPS_API.Data.Repository
             _context = context;
         }
 
+        public async Task<IEnumerable<PDModelDto>> GetPDModels(SPDModelDto sPDModelDto)
+        {
+            List<SqlParameter> pc = new List<SqlParameter>{
+                new SqlParameter("@StartDate",sPDModelDto.StartDate == null ? (object)DBNull.Value : sPDModelDto.StartDate),
+                new SqlParameter("@EndDate",sPDModelDto.EndDate == null ? (object)DBNull.Value : sPDModelDto.EndDate),
+                new SqlParameter("@TeamID",sPDModelDto.TeamID == null ? (object)DBNull.Value : sPDModelDto.TeamID)
+            };
+            var data = await _context.GetPDModelDto
+                   .FromSqlRaw("EXECUTE dbo.QueryPDModel_ @StartDate, @EndDate, @TeamID", pc.ToArray())
+                   .ToListAsync();
+
+            return data;
+        }
+
         public async Task<IEnumerable<GetReportDataPassDto>> GetReportDataPass(SReportDataPassDto spParams)
         {
             List<SqlParameter> pc = new List<SqlParameter>{
@@ -39,9 +53,19 @@ namespace DFPS_API.Data.Repository
             List<GetReportDataPassDto> data = new List<GetReportDataPassDto>();
             try
             {
-                data = await _context.GetReportDataPassDto
-               .FromSqlRaw("EXECUTE dbo.GetReportData_Pass_ @cdate, @cdate_e, @Line_ID, @Model_Name, @Model, @ProdNum, @ProdName_vn, @ProdName_tw,@WorkerNum, @WorkerName, @WorkLevel, @WorkLevel2, @CheckPass", pc.ToArray())
-               .ToListAsync();
+                if (spParams.CheckPass == "1")//通過
+                {
+                    data = await _context.GetReportDataPassDto
+                   .FromSqlRaw("EXECUTE dbo.GetReportData_Pass_ @cdate, @cdate_e, @Line_ID, @Model_Name, @Model, @ProdNum, @ProdName_vn, @ProdName_tw,@WorkerNum, @WorkerName, @WorkLevel, @WorkLevel2, @CheckPass", pc.ToArray())
+                   .ToListAsync();
+                }
+                else//未通過
+                {
+                    data = await _context.GetReportDataPassDto
+                   .FromSqlRaw("EXECUTE dbo.GetReportData_ @cdate, @cdate_e, @Line_ID, @Model_Name, @Model, @ProdNum, @ProdName_vn, @ProdName_tw,@WorkerNum, @WorkerName, @WorkLevel, @WorkLevel2, @CheckPass", pc.ToArray())
+                   .ToListAsync();
+                }
+
             }
             catch (Exception ex)
             {

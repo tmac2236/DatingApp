@@ -1,0 +1,84 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>Query_PD_Model</strong>
+        </div>
+        <form class="form-horizontal" #addAuditTypeForm="ngForm">
+          <div class="card-body">
+            <div class="form-group row">
+              <div class="col-md-12">
+                <div>
+                  <label>開始時間</label>
+                  <input
+                    type="text"
+                    placeholder="StartDate"
+                    name="StartDate"
+                    [(ngModel)]="sQueryPDModel.startDate"
+                  />
+                  <label>結束時間</label>
+                  <input
+                    type="text"
+                    placeholder="EndDate"
+                    name="EndDate"
+                    [(ngModel)]="sQueryPDModel.endDate"
+                  />
+                  <label>棟別</label>
+                  <input
+                    type="text"
+                    placeholder="TeamID"
+                    name="TeamID"
+                    [(ngModel)]="sQueryPDModel.teamID"
+                  />
+                  <button class="btn-primary" type="button" (click)="search()">
+                    Seacrch
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered text-center">
+              <thead>
+                <tr>
+                  <th>查詢日期</th>
+                  <th>派工日期</th>
+                  <th>派工時間</th>
+                  <th>完成日期</th>
+                  <th>完成時間</th>
+                  <th>線別</th>
+                  <th>鞋型Model Name</th>
+                  <th>鞋名Model No</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container
+                  *ngFor="let item of qeryPDModel; let i = index">
+                  <tr>
+                    <td>{{ item.startDate | date: "dd/MM/yyyy" }}</td>
+                    <td>{{ item.startDate | date: "dd/MM/yyyy"}}</td>
+                    <td>{{ item.startDate | date: "HH:mm:ss" }}</td>
+                    <td>{{ item.endDate | date: "dd/MM/yyyy" }}</td>
+                    <td>{{ item.endDate | date: "HH:mm:ss" }}</td>
+                    <td>{{ item.lean }}</td>
+                    <td>{{ item.modelName }}</td>
+                    <td>{{ item.modelNo }}</td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

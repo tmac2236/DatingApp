@@ -14,24 +14,31 @@
                   <input
                     type="text"
                     placeholder="Lean"
-                    name="qrCodeId"
+                    name="Lean"
                     [(ngModel)]="sReportDataPass.lineID"
                   />
                   <label>鞋名</label>
                   <input
                     type="text"
                     placeholder="Model Name"
-                    name="qrCodeId"
+                    name="modelName"
                     [(ngModel)]="sReportDataPass.modelName"
                   />
                   <label>鞋型</label>
                   <input
                     type="text"
                     placeholder="ModelNo"
-                    name="qrCodeId"
+                    name="model"
                     [(ngModel)]="sReportDataPass.model"
                   />
-
+                  <label>Pass</label>
+                  <select
+                    [(ngModel)]="sReportDataPass.checkPass"
+                    name="checkPass"
+                  >
+                    <option value="0">Not Pass</option>
+                    <option value="1">Pass</option>
+                  </select>
                   <button class="btn-primary" type="button" (click)="search()">
                     Seacrch
                   </button>
@@ -51,19 +58,19 @@
             <table class="table table-bordered text-center">
               <thead>
                 <tr>
-                  <th>生產點檢日期</th>
-                  <th>線別</th>
-                  <th>鞋名Model Name</th>
-                  <th>鞋型Model No</th>
-                  <th>工序代號</th>
-                  <th>工序越文</th>
-                  <th>工序中文</th>
-                  <th>組別</th>
-                  <th>工號</th>
-                  <th>姓名</th>
-                  <th>IE分數</th>
-                  <th>品保分數</th>
-                  <th>記錄時間</th>
+                  <th >生產點檢日期</th>
+                  <th >線別</th>
+                  <th >鞋名Model Name</th>
+                  <th >鞋型Model No</th>
+                  <th >工序代號</th>
+                  <th >工序越文</th>
+                  <th >工序中文</th>
+                  <th >組別</th>
+                  <th >工號</th>
+                  <th >姓名</th>
+                  <th >IE分數</th>
+                  <th >品保分數</th>
+                  <th >記錄時間</th>
                 </tr>
               </thead>
               <tbody>

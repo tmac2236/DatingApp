@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using DFPS.API.Models;
 using DFPS.API.DTOs;
+using DFPS_API.DTOs;
 
 namespace DFPS.API.Data
 {
@@ -19,11 +20,13 @@ namespace DFPS.API.Data
 
         //DTO
         public DbSet<GetReportDataPassDto> GetReportDataPassDto { get; set; }
-
+        public DbSet<PDModelDto> GetPDModelDto { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<GetReportDataPassDto>()
+                .HasNoKey();
+            modelBuilder.Entity<PDModelDto>()
                 .HasNoKey();
         }
     }
