@@ -38,6 +38,13 @@ namespace DFPS.API.Controllers
 
         }
 
+        [HttpGet("getAttendanceList")]
+        public async Task<IActionResult> GetAttendanceList()
+        {
+            var data = await _reporDAO.GetAttendances();
+            return Ok(data);
+
+        }
         //http://localhost:5000/api/report/getPlan
         [HttpGet("getPlan")]
         public async Task<IActionResult> GetTestJustName()

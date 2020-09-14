@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { AttendanceListComponent } from './attendance-List.component';
+import { AttendanceListComponent } from './attendance-list.component';
 
 describe('AttendanceListComponent', () => {
   let component: AttendanceListComponent;

@@ -10,7 +10,7 @@ import { MemberDetailComponent } from './members/member-detail/member-detail.com
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { QueryPdModelComponent } from './report/query-pd-model/query-pd-model.component';
 import { GetNoOperationListComponent } from './report/get-no-operation-list/get-no-operation-list.component';
-import { AttendanceListComponent } from './report/attendance-List/attendance-List.component';
+import { AttendanceListComponent } from './report/attendance-list/attendance-list.component';
 import { QueryChangeWorkerComponent } from './report/query-change-worker/query-change-worker.component';
 
 export const appRoutes: Routes = [

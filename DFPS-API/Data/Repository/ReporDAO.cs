@@ -19,6 +19,14 @@ namespace DFPS_API.Data.Repository
             _context = context;
         }
 
+        public async Task<IEnumerable<AttendanceDto>> GetAttendances()
+        {
+            var data = await _context.GetAttendances
+                   .FromSqlRaw("EXECUTE dbo.AttendanceList_")
+                   .ToListAsync();
+            return data;       
+        }
+
         public async Task<IEnumerable<PDModelDto>> GetPDModels(SPDModelDto sPDModelDto)
         {
             List<SqlParameter> pc = new List<SqlParameter>{

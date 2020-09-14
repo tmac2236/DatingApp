@@ -25,11 +25,13 @@ import { PhotoEditorComponent } from './members/photo-editor/photo-editor.compon
 import { QueryPdModelComponent } from './report/query-pd-model/query-pd-model.component';
 import { GetNoOperationListComponent } from './report/get-no-operation-list/get-no-operation-list.component';
 import { QueryChangeWorkerComponent } from './report/query-change-worker/query-change-worker.component';
+import { AttendanceListComponent } from './report/attendance-list/attendance-list.component';
 
 import { ReportService } from './_services/report.service';
 import { AuthService } from './_services/auth.service';
 import { UserService } from './_services/user.service';
 import { AlertifyService } from './_services/alertify.service';
+
 
 
 
@@ -53,6 +55,7 @@ export function tokenGetter() {
     QueryPdModelComponent,
     GetNoOperationListComponent,
     QueryChangeWorkerComponent,
+    AttendanceListComponent,
   ],
   imports: [
     BrowserModule,

@@ -21,6 +21,7 @@ namespace DFPS.API.Data
         //DTO
         public DbSet<GetReportDataPassDto> GetReportDataPassDto { get; set; }
         public DbSet<PDModelDto> GetPDModelDto { get; set; }
+        public DbSet<AttendanceDto> GetAttendances { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,6 +29,8 @@ namespace DFPS.API.Data
                 .HasNoKey();
             modelBuilder.Entity<PDModelDto>()
                 .HasNoKey();
+            modelBuilder.Entity<AttendanceDto>()
+                .HasNoKey();                
         }
     }
 }

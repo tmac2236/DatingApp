@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Utility } from '../utility/utility';
+import { Attendance } from '../_models/attendance';
 import { QueryPDModel } from '../_models/query-pd-model';
 import { ReportDataPass } from '../_models/report-data-pass';
 import { SQueryPDModel } from '../_models/s-query-pd-model';
@@ -27,4 +28,10 @@ export class ReportService {
       sQueryPDModel
     );
   }
+
+  getAttendances() {
+    return this.http.get<Attendance[]>(
+      this.utility.baseUrl + 'report/getAttendanceList');
+  }
+
 }
