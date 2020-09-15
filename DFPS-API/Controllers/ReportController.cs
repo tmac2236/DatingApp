@@ -45,6 +45,14 @@ namespace DFPS.API.Controllers
             return Ok(data);
 
         }
+        [HttpPost("getChangeWorkers")]
+        public async Task<IActionResult> GetChangeWorkers(SPDModelDto sPDModelDto)
+        {
+            var data = await _reporDAO.GetChangeWorkers(sPDModelDto);
+            return Ok(data);
+
+        }
+
         //http://localhost:5000/api/report/getPlan
         [HttpGet("getPlan")]
         public async Task<IActionResult> GetTestJustName()

@@ -19,13 +19,27 @@ namespace DFPS_API.Data.Repository
             _context = context;
         }
 
+        public async Task<IEnumerable<ChangeWorkerDto>> GetChangeWorkers(SPDModelDto sPDModelDto)
+        {
+            List<SqlParameter> pc = new List<SqlParameter>{
+                new SqlParameter("@StartDate",sPDModelDto.StartDate == null ? (object)DBNull.Value : sPDModelDto.StartDate),
+                new SqlParameter("@EndDate",sPDModelDto.EndDate == null ? (object)DBNull.Value : sPDModelDto.EndDate),
+                new SqlParameter("@TeamID",sPDModelDto.TeamID == null ? (object)DBNull.Value : sPDModelDto.TeamID)
+            };
+            var data = await _context.GetChangeWorkerDto
+              .FromSqlRaw("EXECUTE dbo.QueryChangeWorker_ @StartDate, @EndDate, @TeamID", pc.ToArray())
+              .ToListAsync();
+
+            return data;
+        }
         public async Task<IEnumerable<AttendanceDto>> GetAttendances()
         {
-            var data = await _context.GetAttendances
+            var data = await _context.GetAttendanceDto
                    .FromSqlRaw("EXECUTE dbo.AttendanceList_")
                    .ToListAsync();
-            return data;       
+            return data;
         }
+
 
         public async Task<IEnumerable<PDModelDto>> GetPDModels(SPDModelDto sPDModelDto)
         {

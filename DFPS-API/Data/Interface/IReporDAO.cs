@@ -10,5 +10,6 @@ namespace DFPS.API.Data.Interface
         Task<IEnumerable<GetReportDataPassDto>> GetReportDataPass(SReportDataPassDto sReportDataPassDto);
         Task<IEnumerable<PDModelDto>> GetPDModels(SPDModelDto sPDModelDto);
         Task<IEnumerable<AttendanceDto>>GetAttendances();
+        Task<IEnumerable<ChangeWorkerDto>>GetChangeWorkers(SPDModelDto sPDModelDto);
     }
 }

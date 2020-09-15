@@ -1,3 +1,96 @@
-<p>
-  query-change-worker works!
-</p>
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>Query Change Worker</strong>
+        </div>
+        <form class="form-horizontal" #addAuditTypeForm="ngForm">
+          <div class="card-body">
+            <div class="form-group row">
+              <div class="col-md-12">
+                <div>
+                  <label>開始時間</label>
+                  <input
+                    type="date"
+                    placeholder="StartDate"
+                    name="StartDate"
+                    [(ngModel)]="sQueryPDModel.startDate"
+                  />
+                  <label>結束時間</label>
+                  <input
+                    type="date"
+                    placeholder="EndDate"
+                    name="EndDate"
+                    [(ngModel)]="sQueryPDModel.endDate"
+                  />
+                  <label>棟別</label>
+                  <input
+                    type="text"
+                    placeholder="TeamID"
+                    name="TeamID"
+                    [(ngModel)]="sQueryPDModel.teamID"
+                  />
+                  <button class="btn-primary" type="button" (click)="search()">
+                    Seacrch
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered text-center">
+              <thead>
+                <tr>
+                  <th>點檢日期</th>
+                  <th>線別</th>
+                  <th>鞋型Model No</th>
+                  <th>鞋名Model Name</th>
+                  <th>工序代號</th>
+                  <th>工序名稱(越文)</th>
+                  <th>工序名稱(中文)</th>
+                  <th>組別</th>
+                  <th>工號</th>
+                  <th>姓名</th>
+                  <th>分數</th>
+                  <th>原組別</th>
+                  <th>原工號</th>     
+                  <th>原姓名</th>            
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container
+                  *ngFor="let item of changeWorkers; let i = index">
+                  <tr>
+                    <td>{{ item.startDate  }}</td>
+                    <td>{{ item.lean }}</td>
+                    <td>{{ item.modelNo}}</td>
+                    <td>{{ item.modelName }}</td>
+                    <td>{{ item.prodNum }}</td>
+                    <td>{{ item.description }}</td>
+                    <td>{{ item.processMemo }}</td>
+                    <td>{{ item.team }}</td>
+                    <td>{{ item.workerNum}}</td>
+                    <td>{{ item.workerName }}</td>
+                    <td>{{ item.workLevel }}</td>
+                    <td>{{ item.oldTeam }}</td>
+                    <td>{{ item.oldWorkerNum }}</td>
+                    <td>{{ item.oldWorkerName }}</td>                 
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

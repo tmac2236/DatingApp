@@ -40,8 +40,8 @@
                     <td>{{ item.onDuty }}</td>
                     <td>{{ item.offDuty }}</td>
                     <td>{{ item.totalDuty }}</td>
-                    <td>{{ item.onDutyPercent*100 | number:0}}%</td>
-                    <td>{{ item.offDutyPercent*100 | number:0}}%</td>
+                    <td>{{ item.onDutyPercent | percent:'1.2'}}</td>
+                    <td>{{ item.offDutyPercent | percent:'1.2'}}</td>
                   </tr>
                 </ng-container>
               </tbody>

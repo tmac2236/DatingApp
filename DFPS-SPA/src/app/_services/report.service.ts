@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Utility } from '../utility/utility';
 import { Attendance } from '../_models/attendance';
+import { ChangeWorker } from '../_models/change-worker';
 import { QueryPDModel } from '../_models/query-pd-model';
 import { ReportDataPass } from '../_models/report-data-pass';
 import { SQueryPDModel } from '../_models/s-query-pd-model';
@@ -32,6 +33,14 @@ export class ReportService {
   getAttendances() {
     return this.http.get<Attendance[]>(
       this.utility.baseUrl + 'report/getAttendanceList');
+  }
+
+  getChangeWorkers(sQueryPDModel: SQueryPDModel) {
+    console.log('reportService: ' + sQueryPDModel.teamID);
+    return this.http.post<ChangeWorker[]>(
+      this.utility.baseUrl + 'report/getChangeWorkers',
+      sQueryPDModel
+    );
   }
 
 }
