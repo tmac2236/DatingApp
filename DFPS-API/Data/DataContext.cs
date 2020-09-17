@@ -18,11 +18,12 @@ namespace DFPS.API.Data
         public DbSet<SampleWorkProcess> SampleWorkProcess { get; set; }
         public DbSet<SampleWorkWorker> SampleWorkWorker { get; set; }
 
-        //DTO
+        //DTO(Stored Procedure)
         public DbSet<GetReportDataPassDto> GetReportDataPassDto { get; set; }
         public DbSet<PDModelDto> GetPDModelDto { get; set; }
         public DbSet<AttendanceDto> GetAttendanceDto { get; set; }
         public DbSet<ChangeWorkerDto> GetChangeWorkerDto { get; set; }
+        public DbSet<NoOperationDto> GetNoOperationDto { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -32,8 +33,10 @@ namespace DFPS.API.Data
                 .HasNoKey();
             modelBuilder.Entity<AttendanceDto>()
                 .HasNoKey();
-             modelBuilder.Entity<ChangeWorkerDto>()
-                .HasNoKey();               
+            modelBuilder.Entity<ChangeWorkerDto>()
+               .HasNoKey();
+            modelBuilder.Entity<NoOperationDto>()
+               .HasNoKey();
         }
     }
 }

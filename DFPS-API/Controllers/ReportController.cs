@@ -1,10 +1,12 @@
 using DFPS.API.Data;
 using DFPS.API.Data.Interface;
 using DFPS.API.DTOs;
+using DFPS.API.Helpers;
 using DFPS_API.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -51,6 +53,58 @@ namespace DFPS.API.Controllers
             var data = await _reporDAO.GetChangeWorkers(sPDModelDto);
             return Ok(data);
 
+        }
+        [HttpGet("getNoOperation")]
+        public async Task<IActionResult> GetNoOperationDuringMonth(string startDate)
+        {
+            List<List<NoOperationDto>> nastedList = new List<List<NoOperationDto>>();
+            DateTime theDate = Convert.ToDateTime(startDate);
+            int theEndDay = theDate.Day;
+            for (int i = 1; i <= theEndDay; i++)
+            {
+                DateTime itemDate = new DateTime(theDate.Year, theDate.Month, i);
+                string dateStr = itemDate.ToString("yyyy-MM-dd");
+                List<NoOperationDto> data = await _reporDAO.GetNoOperations(dateStr);
+                if(data[0].OnDuty.ToInt() > 0 ){ //onduty=1 上班日,  onduty=0假日(全廠沒有實際工時)
+                    nastedList.Add(data);
+                }
+            }
+
+            int parent = nastedList.Count();
+            //計算累計分數
+            List<NoOperationDto> calNumList = new List<NoOperationDto>();
+            //計算Percent
+            List<NoOperationDto> scoreList = new List<NoOperationDto>();
+
+            for (int i = 0; i < nastedList[0].Count(); i++)
+            {
+                decimal calNum = 0;
+                for (int j = 0; j < parent; j++)
+                { //跑N天的迴圈
+                    var item = nastedList[j]; //第N天
+                    calNum += item[i].Status.ToDecimal(); //該N天的List的i個Lean線做累加
+                }
+                NoOperationDto res = new NoOperationDto();
+                res.StartDate = null;
+                res.Status = calNum;
+                calNumList.Add(res);
+
+                decimal score = 0;
+                NoOperationDto scoreRes = new NoOperationDto();
+                try
+                {
+                    decimal num = (decimal)calNum / (decimal)parent;
+                    score = Decimal.Round(((num) * 100), 2);
+                }
+                catch (Exception ex) { }
+                scoreRes.StartDate = null;
+                scoreRes.Status = score;
+                scoreList.Add(scoreRes);
+            }
+            nastedList.Add(calNumList);
+            nastedList.Add(scoreList);
+
+            return Ok(nastedList);
         }
 
         //http://localhost:5000/api/report/getPlan

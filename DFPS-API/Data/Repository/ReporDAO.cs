@@ -19,6 +19,17 @@ namespace DFPS_API.Data.Repository
             _context = context;
         }
 
+        public async Task<List<NoOperationDto>> GetNoOperations(string thedate)
+        {
+            List<SqlParameter> pc = new List<SqlParameter>{
+                new SqlParameter("@StartDate",thedate)        
+            };
+            var data = await _context.GetNoOperationDto
+            .FromSqlRaw("EXECUTE dbo.GetNoOperationList_APP @StartDate", pc.ToArray())
+            .ToListAsync();
+            return data;
+
+        }
         public async Task<IEnumerable<ChangeWorkerDto>> GetChangeWorkers(SPDModelDto sPDModelDto)
         {
             List<SqlParameter> pc = new List<SqlParameter>{
@@ -97,5 +108,6 @@ namespace DFPS_API.Data.Repository
 
             return data;
         }
+
     }
 }

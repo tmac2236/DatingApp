@@ -32,7 +32,7 @@
                 <ng-container
                   *ngFor="let item of attendance; let i = index">
                   <tr>
-                    <td>{{ item.workDate | date: "dd/MM/yyyy" }}</td>
+                    <td>{{ item.workDate | date: "yyyy/MM/dd" }}</td>
                     <td>{{ item.pdc }}</td>
                     <td>{{ item.building }}</td>
                     <td>{{ item.lean }}</td>

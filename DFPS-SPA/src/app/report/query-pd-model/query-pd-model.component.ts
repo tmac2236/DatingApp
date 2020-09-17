@@ -22,6 +22,7 @@ export class QueryPdModelComponent implements OnInit {
   ngOnInit() {}
 
   search() {
+    this.clean();
     console.log(this.sQueryPDModel);
     this.reportService.getPDModel(this.sQueryPDModel).subscribe(
       (res) => {
@@ -31,5 +32,9 @@ export class QueryPdModelComponent implements OnInit {
         this.alertify.error(error);
       }
     );
+  }
+
+  clean(){
+    this.qeryPDModel =[];
   }
 }

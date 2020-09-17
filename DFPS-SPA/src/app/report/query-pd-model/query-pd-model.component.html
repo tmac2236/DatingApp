@@ -64,10 +64,10 @@
                 <ng-container
                   *ngFor="let item of qeryPDModel; let i = index">
                   <tr>
-                    <td>{{ item.startDate | date: "dd/MM/yyyy" }}</td>
-                    <td>{{ item.startDate | date: "dd/MM/yyyy"}}</td>
+                    <td>{{ item.startDate | date: "yyyy/MM/dd" }}</td>
+                    <td>{{ item.startDate | date: "yyyy/MM/dd"}}</td>
                     <td>{{ item.startDate | date: "HH:mm:ss" }}</td>
-                    <td>{{ item.endDate | date: "dd/MM/yyyy" }}</td>
+                    <td>{{ item.endDate | date: "yyyy/MM/dd" }}</td>
                     <td>{{ item.endDate | date: "HH:mm:ss" }}</td>
                     <td>{{ item.lean }}</td>
                     <td>{{ item.modelName }}</td>

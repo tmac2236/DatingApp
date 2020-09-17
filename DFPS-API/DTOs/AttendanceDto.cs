@@ -11,7 +11,7 @@ namespace DFPS.API.DTOs
         public int? OnDuty { get; set; }
         public int? OffDuty { get; set; }
         public int? TotalDuty { get; set; }
-        public double? OnDutyPercent{ get; set; }
-        public double? OffDutyPercent{ get; set; }
+        public double? OnDutyPercent { get; set; }
+        public double? OffDutyPercent { get; set; }
     }
 }

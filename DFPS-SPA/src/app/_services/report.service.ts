@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Utility } from '../utility/utility';
 import { Attendance } from '../_models/attendance';
 import { ChangeWorker } from '../_models/change-worker';
+import { NoOperationList } from '../_models/no-operation-list';
 import { QueryPDModel } from '../_models/query-pd-model';
 import { ReportDataPass } from '../_models/report-data-pass';
 import { SQueryPDModel } from '../_models/s-query-pd-model';
@@ -13,6 +14,12 @@ import { SReportDataPass } from '../_models/s_report-data-pass';
 })
 export class ReportService {
   constructor(private http: HttpClient, private utility: Utility) {}
+
+  getNoOperations(startDate: string) {
+    return this.http.get<NoOperationList[]>(
+      this.utility.baseUrl + 'report/getNoOperation?startDate=' + startDate
+    );
+  }
 
   getReportDataPass(sReportDataPass: SReportDataPass) {
     console.log('reportService: ' + sReportDataPass.lineID);
@@ -32,7 +39,8 @@ export class ReportService {
 
   getAttendances() {
     return this.http.get<Attendance[]>(
-      this.utility.baseUrl + 'report/getAttendanceList');
+      this.utility.baseUrl + 'report/getAttendanceList'
+    );
   }
 
   getChangeWorkers(sQueryPDModel: SQueryPDModel) {
@@ -42,5 +50,4 @@ export class ReportService {
       sQueryPDModel
     );
   }
-
 }

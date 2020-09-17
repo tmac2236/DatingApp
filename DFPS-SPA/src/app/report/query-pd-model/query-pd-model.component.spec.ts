@@ -11,9 +11,8 @@ describe('QueryPdModelComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ QueryPdModelComponent ]
-    })
-    .compileComponents();
+      declarations: [QueryPdModelComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

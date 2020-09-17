@@ -52,6 +52,7 @@ export class HomeComponent implements OnInit {
   }
 
   search() {
+    this.clean();
     console.log(this.sReportDataPass);
     this.reportService.getReportDataPass(this.sReportDataPass).subscribe(
       (res) => {
@@ -61,5 +62,9 @@ export class HomeComponent implements OnInit {
         this.alertify.error(error);
       }
     );
+  }
+  clean(){
+    this.planWorker = [];
+    this.reportDataPass = [];
   }
 }

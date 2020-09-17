@@ -23,6 +23,7 @@ export class QueryChangeWorkerComponent implements OnInit {
   ngOnInit() {}
   
   search() {
+    this.clean();
     console.log(this.sQueryPDModel);
     this.reportService.getChangeWorkers(this.sQueryPDModel).subscribe(
       (res) => {
@@ -32,5 +33,8 @@ export class QueryChangeWorkerComponent implements OnInit {
         this.alertify.error(error);
       }
     );
+  }
+  clean(){
+    this.changeWorkers =[];
   }
 }
