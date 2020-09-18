@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { PlanWorker } from '../_models/plan-worker';
 import { ReportDataPass } from '../_models/report-data-pass';
 import { ReportService } from '../_services/report.service';
 import { SReportDataPass } from '../_models/s_report-data-pass';
-import { AlertifyService } from '../_services/alertify.service';
+
+import { Utility } from '../utility/utility';
 
 @Component({
   selector: 'app-home',
@@ -17,9 +17,8 @@ export class HomeComponent implements OnInit {
   reportDataPass: ReportDataPass[];
   sReportDataPass = new SReportDataPass();
   constructor(
-    private http: HttpClient,
+    private utility: Utility,
     private reportService: ReportService,
-    private alertify: AlertifyService
   ) {}
 
   ngOnInit() {
@@ -33,7 +32,7 @@ export class HomeComponent implements OnInit {
   }
 
   getValues() {
-    this.http
+    this.utility.http
       .get<ReportDataPass[]>(
         'http://localhost:5000/api/report/getReportDataPass'
       )
@@ -52,16 +51,20 @@ export class HomeComponent implements OnInit {
   }
 
   search() {
+    this.utility.spinner.show();
     this.clean();
     console.log(this.sReportDataPass);
     this.reportService.getReportDataPass(this.sReportDataPass).subscribe(
       (res) => {
         this.reportDataPass = res;
+        this.utility.spinner.hide();
       },
       (error) => {
-        this.alertify.error(error);
+        this.utility.spinner.hide();
+        this.utility.alertify.error(error);
       }
     );
+
   }
   clean(){
     this.planWorker = [];

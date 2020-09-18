@@ -1,13 +1,24 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { environment } from 'src/environments/environment';
+import { AlertifyService } from '../_services/alertify.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Utility {
-  baseUrl = environment.apiUrl;
 
-  constructor() {}
+  baseUrl = environment.apiUrl;
+  http = this.cHttp;
+  alertify = this.cAlertify;
+  spinner = this.cSpinner;
+
+  constructor(
+    private cHttp: HttpClient,
+    private cAlertify: AlertifyService,
+    private cSpinner: NgxSpinnerService
+  ) {}
 
   getToDay() {
     const toDay =

@@ -1,7 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Utility } from 'src/app/utility/utility';
 import { NoOperationList } from 'src/app/_models/no-operation-list';
-import { AlertifyService } from 'src/app/_services/alertify.service';
 import { ReportService } from 'src/app/_services/report.service';
 
 @Component({
@@ -14,24 +13,26 @@ export class GetNoOperationListComponent implements OnInit {
   noOperationsList: NoOperationList[];
   arr = []; //use for 68 lean loop
   constructor(
-    private http: HttpClient,
+    private utility: Utility,
     private reportService: ReportService,
-    private alertify: AlertifyService
   ) {}
 
   ngOnInit() {}
 
   search() {
     this.clean();
+    this.utility.spinner.show();
     this.reportService.getNoOperations(this.startDate).subscribe(
       (res) => {
         this.noOperationsList = res;
         for (let i = 0; i < this.noOperationsList.length; i++){
           this.arr.push(i);
         }
+        this.utility.spinner.hide();
       },
       (error) => {
-        this.alertify.error(error);
+        this.utility.spinner.hide();
+        this.utility.alertify.error(error);
       }
     );
   }

@@ -1,8 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Utility } from 'src/app/utility/utility';
 import { ChangeWorker } from 'src/app/_models/change-worker';
 import { SQueryPDModel } from 'src/app/_models/s-query-pd-model';
-import { AlertifyService } from 'src/app/_services/alertify.service';
 import { ReportService } from 'src/app/_services/report.service';
 
 @Component({
@@ -15,22 +14,23 @@ export class QueryChangeWorkerComponent implements OnInit {
   changeWorkers: ChangeWorker[];
   sQueryPDModel = new SQueryPDModel();
   constructor(
-    private http: HttpClient,
+    private utility: Utility,
     private reportService: ReportService,
-    private alertify: AlertifyService
   ) {}
 
   ngOnInit() {}
   
   search() {
     this.clean();
-    console.log(this.sQueryPDModel);
+    this.utility.spinner.show();
     this.reportService.getChangeWorkers(this.sQueryPDModel).subscribe(
       (res) => {
         this.changeWorkers = res;
+        this.utility.spinner.hide();
       },
       (error) => {
-        this.alertify.error(error);
+        this.utility.spinner.hide();
+        this.utility.alertify.error(error);
       }
     );
   }

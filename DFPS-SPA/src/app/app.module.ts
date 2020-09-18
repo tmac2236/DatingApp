@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { appRoutes } from './routes';
@@ -58,6 +59,7 @@ export function tokenGetter() {
     AttendanceListComponent,
   ],
   imports: [
+    NgxSpinnerModule,
     BrowserModule,
     HttpClientModule,
     FormsModule,
