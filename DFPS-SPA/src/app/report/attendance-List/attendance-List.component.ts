@@ -34,4 +34,30 @@ export class AttendanceListComponent implements OnInit {
       }
     );
   }
+  export() {
+    this.utility.spinner.show();
+    this.utility.http.get(
+      this.utility.baseUrl + 'report/exportGetAttendanceList'
+       ,
+      { responseType: 'blob' })
+      .subscribe((result: Blob) =>{
+        if (result.type !== 'application/xlsx') {
+          alert(result.type);
+          this.utility.spinner.hide();
+        }
+        const blob = new Blob([result]);
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        const currentTime = new Date();
+        const filename = 'Excel_GetAttendanceList_' + currentTime.getFullYear().toString() +
+          (currentTime.getMonth() + 1) + currentTime.getDate() +
+          currentTime.toLocaleTimeString().replace(/[ ]|[,]|[:]/g, '').trim() + '.xlsx';
+        link.href = url;
+        link.setAttribute('download', filename);
+        document.body.appendChild(link);
+        link.click();
+        this.utility.spinner.hide();
+      }
+    );
+  }
 }

@@ -32,6 +32,7 @@ import { ReportService } from './_services/report.service';
 import { AuthService } from './_services/auth.service';
 import { UserService } from './_services/user.service';
 import { AlertifyService } from './_services/alertify.service';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -83,6 +84,8 @@ export function tokenGetter() {
     UserService,
     PreventUnsavedChanges,
     ReportService,
+    DatePipe,
+    
   ],
   bootstrap: [AppComponent],
 })

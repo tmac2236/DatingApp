@@ -3,37 +3,51 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          <strong>Query_PD_Model</strong>
+          <strong>Query_PD_Model(派工查詢)</strong>
         </div>
         <form class="form-horizontal" #addAuditTypeForm="ngForm">
           <div class="card-body">
             <div class="form-group row">
               <div class="col-md-12">
                 <div>
-                  <label>開始時間</label>
+                  <label class="col-form-label mr-2">開始時間</label>
                   <input
+                    class="col-form-label mr-2"
                     type="date"
                     placeholder="StartDate"
                     name="StartDate"
                     [(ngModel)]="sQueryPDModel.startDate"
                   />
-                  <label>結束時間</label>
+                  <label class="col-form-label mr-2">結束時間</label>
                   <input
+                    class="col-form-label mr-2"
                     type="date"
                     placeholder="EndDate"
                     name="EndDate"
                     [(ngModel)]="sQueryPDModel.endDate"
                   />
-                  <label>棟別</label>
+                  <label class="col-form-label mr-2">棟別</label>
                   <input
+                    class="col-form-label mr-2"
                     type="text"
                     placeholder="TeamID"
                     name="TeamID"
                     [(ngModel)]="sQueryPDModel.teamID"
                   />
-                  <button class="btn-primary" type="button" (click)="search()">
+                  <button
+                    class="btn btn-primary mr-2"
+                    type="button"
+                    (click)="search()"
+                  >
                     Seacrch
                   </button>
+                  <button
+                  class="btn btn-primary mr-2"
+                  type="button"
+                  (click)="export()"
+                >
+                  Export
+                </button>                 
                 </div>
               </div>
             </div>
@@ -47,7 +61,7 @@
       <div class="card">
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table table-bordered text-center">
+            <table class="table table-striped text-center" data-height="200">
               <thead>
                 <tr>
                   <th>查詢日期</th>
@@ -61,11 +75,10 @@
                 </tr>
               </thead>
               <tbody>
-                <ng-container
-                  *ngFor="let item of qeryPDModel; let i = index">
+                <ng-container *ngFor="let item of qeryPDModel; let i = index">
                   <tr>
                     <td>{{ item.startDate | date: "yyyy/MM/dd" }}</td>
-                    <td>{{ item.startDate | date: "yyyy/MM/dd"}}</td>
+                    <td>{{ item.startDate | date: "yyyy/MM/dd" }}</td>
                     <td>{{ item.startDate | date: "HH:mm:ss" }}</td>
                     <td>{{ item.endDate | date: "yyyy/MM/dd" }}</td>
                     <td>{{ item.endDate | date: "HH:mm:ss" }}</td>

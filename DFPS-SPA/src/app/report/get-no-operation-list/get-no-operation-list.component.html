@@ -10,15 +10,19 @@
             <div class="form-group row">
               <div class="col-md-12">
                 <div>
-                  <label>開工時間</label>
+                  <label class="col-form-label mr-2">開工時間</label>
                   <input
+                    class="col-form-label mr-2"
                     type="date"
                     placeholder="StartDate"
                     name="StartDate"
                     [(ngModel)]="startDate"
                   />
-                  <button class="btn-primary" type="button" (click)="search()">
+                  <button type="button" (click)="search()" class="btn btn-primary mr-2">
                     Seacrch
+                  </button>
+                  <button  type="button" (click)="export()" class="btn btn-primary mr-2">
+                    Export
                   </button>
                 </div>
               </div>
@@ -33,7 +37,7 @@
       <div class="card">
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table table-bordered text-center">
+            <table class="table table-striped text-center">
               <thead>
                 <tr>
                   <!--第一列當標題-->
@@ -49,8 +53,8 @@
               <tbody>
                 <!--第一欄當Lean標題-->
                 
-                <ng-container *ngFor="let Obj of noOperationsList[0]; let i = index">
-                  <tr>
+                <ng-container *ngIf="noOperationsList" >
+                  <tr *ngFor="let Obj of noOperationsList[0]; let i = index">
                     <td>{{noOperationsList[0][i].lean}}</td> 
                     <td *ngFor="let j of arr;">{{ noOperationsList[j][i].status }}</td>                                                                 
                   </tr>

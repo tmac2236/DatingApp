@@ -13,17 +13,17 @@ import { SReportDataPass } from '../_models/s_report-data-pass';
   providedIn: 'root',
 })
 export class ReportService {
-  constructor(private http: HttpClient, private utility: Utility) {}
+  constructor( private utility: Utility) {}
 
   getNoOperations(startDate: string) {
-    return this.http.get<NoOperationList[]>(
+    return this.utility.http.get<NoOperationList[]>(
       this.utility.baseUrl + 'report/getNoOperation?startDate=' + startDate
     );
   }
 
   getReportDataPass(sReportDataPass: SReportDataPass) {
     console.log('reportService: ' + sReportDataPass.lineID);
-    return this.http.post<ReportDataPass[]>(
+    return this.utility.http.post<ReportDataPass[]>(
       this.utility.baseUrl + 'report/getReportDataPass',
       sReportDataPass
     );
@@ -31,21 +31,21 @@ export class ReportService {
 
   getPDModel(sQueryPDModel: SQueryPDModel) {
     console.log('reportService: ' + sQueryPDModel.teamID);
-    return this.http.post<QueryPDModel[]>(
+    return this.utility.http.post<QueryPDModel[]>(
       this.utility.baseUrl + 'report/getQueryPDModel',
       sQueryPDModel
     );
   }
 
   getAttendances() {
-    return this.http.get<Attendance[]>(
+    return this.utility.http.get<Attendance[]>(
       this.utility.baseUrl + 'report/getAttendanceList'
     );
   }
 
   getChangeWorkers(sQueryPDModel: SQueryPDModel) {
     console.log('reportService: ' + sQueryPDModel.teamID);
-    return this.http.post<ChangeWorker[]>(
+    return this.utility.http.post<ChangeWorker[]>(
       this.utility.baseUrl + 'report/getChangeWorkers',
       sQueryPDModel
     );

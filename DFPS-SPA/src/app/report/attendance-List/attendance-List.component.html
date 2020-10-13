@@ -3,8 +3,25 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          <strong>Attendance List</strong>
+          <strong>Attendance List(開工查詢)</strong>
         </div>
+        <form class="form-horizontal" #addAuditTypeForm="ngForm">
+          <div class="card-body">
+            <div class="form-group row">
+              <div class="col-md-12">
+                <div>
+                  <button
+                  class="btn btn-primary mr-2"
+                  type="button"
+                  (click)="export()"
+                >
+                  Export
+                </button>                 
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>        
       </div>
     </div>
   </div>
@@ -13,7 +30,7 @@
       <div class="card">
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table table-bordered text-center">
+            <table class="table table-striped text-center">
               <thead>
                 <tr>
                   <th>開工日期</th>
@@ -37,9 +54,9 @@
                     <td>{{ item.building }}</td>
                     <td>{{ item.lean }}</td>
                     <td>{{ item.team }}</td>
+                    <td>{{ item.totalDuty }}</td>
                     <td>{{ item.onDuty }}</td>
                     <td>{{ item.offDuty }}</td>
-                    <td>{{ item.totalDuty }}</td>
                     <td>{{ item.onDutyPercent | percent:'1.2'}}</td>
                     <td>{{ item.offDutyPercent | percent:'1.2'}}</td>
                   </tr>

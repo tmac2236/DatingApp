@@ -3,6 +3,7 @@ import { Utility } from 'src/app/utility/utility';
 import { QueryPDModel } from 'src/app/_models/query-pd-model';
 import { SQueryPDModel } from 'src/app/_models/s-query-pd-model';
 import { ReportService } from 'src/app/_services/report.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-query-pd-model',
@@ -15,9 +16,13 @@ export class QueryPdModelComponent implements OnInit {
   constructor(
     private utility: Utility,
     private reportService: ReportService,
+    private datepipe: DatePipe,
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.sQueryPDModel.startDate = this.datepipe.transform(new Date(), 'yyyy-MM-dd');
+    this.sQueryPDModel.endDate = this.datepipe.transform(new Date(), 'yyyy-MM-dd');
+  }
 
   search() {
     this.clean();
@@ -30,6 +35,35 @@ export class QueryPdModelComponent implements OnInit {
       (error) => {
         this.utility.spinner.hide();
         this.utility.alertify.error(error);
+      }
+    );
+  }
+  export() {
+    this.utility.spinner.show();
+    this.utility.http.get(
+      this.utility.baseUrl + 'report/exportGetQueryPDModel?startDate=' +
+      this.sQueryPDModel.startDate + '&endDate=' +
+      this.sQueryPDModel.endDate + '&teamID=' +
+      this.sQueryPDModel.teamID
+       ,
+      { responseType: 'blob' })
+      .subscribe((result: Blob) =>{
+        if (result.type !== 'application/xlsx') {
+          alert(result.type);
+          this.utility.spinner.hide();
+        }
+        const blob = new Blob([result]);
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        const currentTime = new Date();
+        const filename = 'Excel_GetQueryPDModel_' + currentTime.getFullYear().toString() +
+          (currentTime.getMonth() + 1) + currentTime.getDate() +
+          currentTime.toLocaleTimeString().replace(/[ ]|[,]|[:]/g, '').trim() + '.xlsx';
+        link.href = url;
+        link.setAttribute('download', filename);
+        document.body.appendChild(link);
+        link.click();
+        this.utility.spinner.hide();
       }
     );
   }

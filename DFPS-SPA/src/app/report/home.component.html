@@ -3,44 +3,75 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          <strong>GetReportData_Pass</strong>
+          <strong>GetReportData_Pass(人員點檢紀錄)</strong>
         </div>
         <form class="form-horizontal" #addAuditTypeForm="ngForm">
           <div class="card-body">
             <div class="form-group row">
               <div class="col-md-12">
                 <div>
-                  <label>線別</label>
+                  <label class="col-form-label mr-2">點檢日期(起)</label>
                   <input
+                    class="col-form-label mr-2"
+                    type="date"
+                    placeholder="StartDate"
+                    name="cDate"
+                    [(ngModel)]="sReportDataPass.cDate"
+                  />
+                  <label class="col-form-label mr-2">點檢日期(迄)</label>
+                  <input
+                  class="col-form-label mr-2"
+                  type="date"
+                  placeholder="EndDate"
+                  name="cDateE"
+                  [(ngModel)]="sReportDataPass.cDateE"
+                  />
+                  <label class="col-form-label mr-2">線別</label>
+                  <input
+                    class="col-form-label mr-2"
                     type="text"
                     placeholder="Lean"
                     name="Lean"
                     [(ngModel)]="sReportDataPass.lineID"
                   />
-                  <label>鞋名</label>
+                  <label class="col-form-label mr-2">鞋名</label>
                   <input
+                    class="col-form-label mr-2"
                     type="text"
                     placeholder="Model Name"
                     name="modelName"
                     [(ngModel)]="sReportDataPass.modelName"
                   />
-                  <label>鞋型</label>
+                  <label class="col-form-label mr-2">鞋型</label>
                   <input
+                    class="col-form-label mr-2"
                     type="text"
                     placeholder="ModelNo"
                     name="model"
                     [(ngModel)]="sReportDataPass.model"
                   />
-                  <label>Pass</label>
+                  <label class="col-form-label mr-2">Pass</label>
                   <select
                     [(ngModel)]="sReportDataPass.checkPass"
                     name="checkPass"
+                    class="col-form-label mr-2"
                   >
                     <option value="0">Not Pass</option>
                     <option value="1">Pass</option>
                   </select>
-                  <button class="btn-primary" type="button" (click)="search()">
+                  <button
+                    class="btn btn-primary mr-2"
+                    type="button"
+                    (click)="search()"
+                  >
                     Seacrch
+                  </button>
+                  <button
+                    class="btn btn-primary mr-2"
+                    type="button"
+                    (click)="export()"
+                  >
+                    Export
                   </button>
                 </div>
               </div>
@@ -55,22 +86,22 @@
       <div class="card">
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table table-bordered text-center">
+            <table class="table text-center table-striped">
               <thead>
                 <tr>
-                  <th >生產點檢日期</th>
-                  <th >線別</th>
-                  <th >鞋名Model Name</th>
-                  <th >鞋型Model No</th>
-                  <th >工序代號</th>
-                  <th >工序越文</th>
-                  <th >工序中文</th>
-                  <th >組別</th>
-                  <th >工號</th>
-                  <th >姓名</th>
-                  <th >IE分數</th>
-                  <th >品保分數</th>
-                  <th >記錄時間</th>
+                  <th>生產點檢日期</th>
+                  <th>線別</th>
+                  <th>鞋名Model Name</th>
+                  <th>鞋型Model No</th>
+                  <th>工序代號</th>
+                  <th>工序越文</th>
+                  <th>工序中文</th>
+                  <th>組別</th>
+                  <th>工號</th>
+                  <th>姓名</th>
+                  <th>IE分數</th>
+                  <th>品保分數</th>
+                  <th>記錄時間</th>
                 </tr>
               </thead>
               <tbody>
