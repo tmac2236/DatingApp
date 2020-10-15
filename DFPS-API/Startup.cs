@@ -23,6 +23,7 @@ using Microsoft.AspNetCore.Http;
 using DFPS.API.Helpers;
 using AutoMapper;
 using DFPS_API.Data.Repository;
+using DFPS_API.Filters;
 
 namespace DFPS.API
 {
@@ -72,6 +73,8 @@ namespace DFPS.API
                         ValidateAudience = false
                     };
                 });
+            //log
+            services.AddScoped<ApiExceptionFilter>();    
 
         }
 

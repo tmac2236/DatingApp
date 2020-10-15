@@ -1,4 +1,6 @@
 .vscode
-bon
+bin
 obj
 *.db
+*.dll
+*.pdb

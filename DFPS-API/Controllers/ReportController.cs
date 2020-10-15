@@ -3,7 +3,6 @@ using DFPS.API.Data.Interface;
 using DFPS.API.DTOs;
 using DFPS.API.Helpers;
 using DFPS_API.DTOs;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Aspose.Cells;
 using System.Drawing;
-using System.Diagnostics;
+using Microsoft.Extensions.Logging;
 
 namespace DFPS.API.Controllers
 {
@@ -23,11 +22,18 @@ namespace DFPS.API.Controllers
         private readonly DataContext _context;
         private readonly IReporDAO _reporDAO;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        public ReportController(DataContext context, IReporDAO reporDAO, IWebHostEnvironment webHostEnvironment)
+        private readonly ILogger<ReportController> _logger;
+        public ReportController(DataContext context, IReporDAO reporDAO, IWebHostEnvironment webHostEnvironment, ILogger<ReportController> logger)
         {
             _context = context;
             _reporDAO = reporDAO;
             _webHostEnvironment = webHostEnvironment;
+            _logger = logger;
+        }
+        [HttpGet("throw")]
+        public object Throw()
+        {
+            throw new Exception();
         }
 
         [HttpGet("exportGetNoOperaionList")]
@@ -79,19 +85,19 @@ namespace DFPS.API.Controllers
             //第二列以後
             int leanCount = data[0].Count();    //loop 68 times for leans
             int workDaysCount = data.Count(); //loop day exclude total and percent
-            int rowNum =  1;
+            int rowNum = 1;
 
             //foreach (NoOperationDto obj in data[0]) //loop 68 times for leans
-            for( int i = 0 ; i < leanCount ; i++ )
+            for (int i = 0; i < leanCount; i++)
             {
                 //迴圈跑天數(扣除非上班日)
                 int column = 0;
                 //每一筆row的Column是Lean名稱
-                string leanObj = data[0][rowNum -1].Lean;
+                string leanObj = data[0][rowNum - 1].Lean;
                 ws.Cells[rowNum, column].Value = leanObj;
                 column += 1;
                 //Debug.WriteLine("*******i =" + i);
-                for(int j = 0 ; j < workDaysCount; j++)
+                for (int j = 0; j < workDaysCount; j++)
                 {
                     //Debug.WriteLine("j =" + j);
                     decimal? statusObj = data[j][i].Status;
