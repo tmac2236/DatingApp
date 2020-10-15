@@ -4,3 +4,4 @@ obj
 *.db
 *.dll
 *.pdb
+.API.pdb
