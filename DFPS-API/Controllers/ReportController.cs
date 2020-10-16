@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using Aspose.Cells;
 using System.Drawing;
 using Microsoft.Extensions.Logging;
+using DFPS_API.Helpers;
 
 namespace DFPS.API.Controllers
 {
@@ -180,13 +181,16 @@ namespace DFPS.API.Controllers
         }
 
         [HttpGet("getAttendanceList")]
-        public async Task<IActionResult> GetAttendanceList()
+        public IActionResult GetAttendanceList([FromQuery]PaginationParams paginationParams)
         {
-            var data = await _reporDAO.GetAttendances();
+            var data =  _reporDAO.GetAttendances(paginationParams);
+
+            Response.AddPagination(data.CurrentPage, data.PageSize,
+                 data.TotalCount, data.TotalPages);
+
             return Ok(data);
-
         }
-
+        /*
         [HttpGet("exportGetAttendanceList")]
         public async Task<IActionResult> exportGetAttendanceList()
         {
@@ -205,6 +209,7 @@ namespace DFPS.API.Controllers
 
             return File(result, "application/xlsx", "Excel" + DateTime.Now.ToString("dd_MM_yyyy_HH_mm_ss") + ".xlsx");
         }
+        */
         /*
                 [HttpGet("exportGetAttendanceList")]
                 public async Task<IActionResult> exportGetAttendanceList()

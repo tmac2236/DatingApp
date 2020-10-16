@@ -1,19 +1,22 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Utility } from '../utility/utility';
 import { Attendance } from '../_models/attendance';
 import { ChangeWorker } from '../_models/change-worker';
 import { NoOperationList } from '../_models/no-operation-list';
+import { PaginatedResult } from '../_models/pagination';
 import { QueryPDModel } from '../_models/query-pd-model';
 import { ReportDataPass } from '../_models/report-data-pass';
 import { SQueryPDModel } from '../_models/s-query-pd-model';
 import { SReportDataPass } from '../_models/s_report-data-pass';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ReportService {
-  constructor( private utility: Utility) {}
+  constructor(private utility: Utility) {}
 
   getNoOperations(startDate: string) {
     return this.utility.http.get<NoOperationList[]>(
@@ -37,10 +40,27 @@ export class ReportService {
     );
   }
 
-  getAttendances() {
+  getAttendances(page?, itemsPerPage?): Observable<PaginatedResult<Attendance[]>> {
+    const paginatedResult: PaginatedResult<Attendance[]> = new PaginatedResult<Attendance[]>();
+
+    let params = new HttpParams();
+
+    if (page != null && itemsPerPage != null) {
+      params = params.append('pageNumber', page);
+      params = params.append('pageSize', itemsPerPage);
+    }
+
     return this.utility.http.get<Attendance[]>(
-      this.utility.baseUrl + 'report/getAttendanceList'
-    );
+      this.utility.baseUrl + 'report/getAttendanceList', { observe: 'response', params })
+      .pipe(
+        map(response =>{
+          paginatedResult.result = response.body;
+          if (response.headers.get('Pagination') != null){
+            paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+          }
+          return paginatedResult;
+        })
+      );
   }
 
   getChangeWorkers(sQueryPDModel: SQueryPDModel) {

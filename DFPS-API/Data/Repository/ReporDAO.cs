@@ -8,6 +8,7 @@ using DFPS.API.Data.Interface;
 using DFPS.API.DTOs;
 using DFPS_API.DTOs;
 using System;
+using DFPS_API.Helpers;
 
 namespace DFPS_API.Data.Repository
 {
@@ -22,7 +23,7 @@ namespace DFPS_API.Data.Repository
         public async Task<List<NoOperationDto>> GetNoOperations(string thedate)
         {
             List<SqlParameter> pc = new List<SqlParameter>{
-                new SqlParameter("@StartDate",thedate)        
+                new SqlParameter("@StartDate",thedate)
             };
             var data = await _context.GetNoOperationDto
             .FromSqlRaw("EXECUTE dbo.GetNoOperationList_APP @StartDate", pc.ToArray())
@@ -43,12 +44,11 @@ namespace DFPS_API.Data.Repository
 
             return data;
         }
-        public async Task<IEnumerable<AttendanceDto>> GetAttendances()
+        public PagedList<AttendanceDto> GetAttendances(PaginationParams paginationParams)
         {
-            var data = await _context.GetAttendanceDto
-                   .FromSqlRaw("EXECUTE dbo.AttendanceList_")
-                   .ToListAsync();
-            return data;
+            var data = _context.GetAttendanceDto
+                   .FromSqlRaw("EXECUTE dbo.AttendanceList_").AsEnumerable().Where(x => x.Building == "E").ToList();
+            return PagedList<AttendanceDto>.Create(data, paginationParams.PageNumber, paginationParams.PageSize);
         }
 
 
