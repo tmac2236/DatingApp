@@ -76,7 +76,7 @@
                 <ng-container
                   *ngFor="let item of changeWorkers; let i = index">
                   <tr>
-                    <td>{{ item.startDate  }}</td>
+                    <td>{{ item.startDate | date: "yyyy/MM/dd" }}</td>
                     <td>{{ item.lean }}</td>
                     <td>{{ item.modelNo}}</td>
                     <td>{{ item.modelName }}</td>

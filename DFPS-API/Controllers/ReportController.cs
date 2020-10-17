@@ -126,13 +126,15 @@ namespace DFPS.API.Controllers
         }
         [HttpGet("exportGetReportDataPass")]
         public async Task<IActionResult> exportGetReportDataPass
-        (string lineID, string modelName, string model, string checkPass)
+        (string lineID, string modelName, string model, string checkPass, string cDate, string cDateE)
         {
             SReportDataPassDto sReportDataPassDto = new SReportDataPassDto();
             if (lineID != "undefined") sReportDataPassDto.LineID = lineID;
             if (modelName != "undefined") sReportDataPassDto.ModelName = modelName;
             if (model != "undefined") sReportDataPassDto.Model = model;
             if (checkPass != "undefined") sReportDataPassDto.CheckPass = checkPass;
+            if (cDate != "undefined") sReportDataPassDto.CDate = cDate;
+            if (cDateE != "undefined") sReportDataPassDto.CDateE = cDateE;
             // query data from database  
             var data = await _reporDAO.GetReportDataPass(sReportDataPassDto);
 
@@ -161,9 +163,9 @@ namespace DFPS.API.Controllers
         (string startDate, string endDate, string teamID)
         {
             SPDModelDto sPDModelDto = new SPDModelDto();
-            if (startDate != "undefined") sPDModelDto.StartDate = startDate;
-            if (endDate != "undefined") sPDModelDto.EndDate = endDate;
-            if (teamID != "undefined") sPDModelDto.TeamID = teamID;
+            sPDModelDto.StartDate = startDate;
+            sPDModelDto.EndDate = endDate;
+            sPDModelDto.TeamID = teamID == null ? "" : teamID;
             // query data from database  
             var data = await _reporDAO.GetPDModels(sPDModelDto);
 
@@ -181,16 +183,16 @@ namespace DFPS.API.Controllers
         }
 
         [HttpGet("getAttendanceList")]
-        public IActionResult GetAttendanceList([FromQuery]PaginationParams paginationParams)
+        public IActionResult GetAttendanceList([FromQuery] SAttendanceDto sAttendanceDto)
         {
-            var data =  _reporDAO.GetAttendances(paginationParams);
+            var data = _reporDAO.GetAttendances(sAttendanceDto);
 
             Response.AddPagination(data.CurrentPage, data.PageSize,
                  data.TotalCount, data.TotalPages);
 
             return Ok(data);
         }
-        /*
+
         [HttpGet("exportGetAttendanceList")]
         public async Task<IActionResult> exportGetAttendanceList()
         {
@@ -209,24 +211,6 @@ namespace DFPS.API.Controllers
 
             return File(result, "application/xlsx", "Excel" + DateTime.Now.ToString("dd_MM_yyyy_HH_mm_ss") + ".xlsx");
         }
-        */
-        /*
-                [HttpGet("exportGetAttendanceList")]
-                public async Task<IActionResult> exportGetAttendanceList()
-                {
-                    // query data from database  
-                    var data = await _reporDAO.GetAttendances();
-                    WorkbookDesigner designer = new WorkbookDesigner();
-                    Worksheet ws = designer.Workbook.Worksheets[0];
-                    ws.Cells[0, 0].Value = "Receive_Date";
-
-                    MemoryStream stream = new MemoryStream();
-                    designer.Workbook.Save(stream, SaveFormat.Xlsx);
-                    byte[] result = stream.ToArray();
-
-                    return File(result, "application/xlsx", "Excel" + DateTime.Now.ToString("dd_MM_yyyy_HH_mm_ss") + ".xlsx");
-                }
-        */
         [HttpPost("getChangeWorkers")]
         public async Task<IActionResult> GetChangeWorkers(SPDModelDto sPDModelDto)
         {

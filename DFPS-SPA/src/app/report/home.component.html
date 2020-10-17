@@ -109,7 +109,7 @@
                   *ngFor="let item of reportDataPass; let i = index"
                 >
                   <tr>
-                    <td>{{ item.cDate | date: "dd/MM/yyyy" }}</td>
+                    <td>{{ item.cDate | date: "yyyy/MM/dd" }}</td>
                     <td>{{ item.maker }}</td>
                     <td>{{ item.sampleDesc }}</td>
                     <td>{{ item.modelNr }}</td>
@@ -121,7 +121,7 @@
                     <td>{{ item.workerName }}</td>
                     <td>{{ item.workLevel }}</td>
                     <td>{{ item.workLevel2 }}</td>
-                    <td>{{ item.editDate }}</td>
+                    <td>{{ item.editDate | date: "yyyy/MM/dd, h:mm:ss a"}}</td>
                   </tr>
                 </ng-container>
               </tbody>

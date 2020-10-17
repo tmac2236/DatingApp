@@ -57,7 +57,6 @@ export class HomeComponent implements OnInit {
   search() {
     this.utility.spinner.show();
     this.clean();
-    console.log(this.sReportDataPass);
     this.reportService.getReportDataPass(this.sReportDataPass).subscribe(
       (res) => {
         this.reportDataPass = res;
@@ -78,10 +77,12 @@ export class HomeComponent implements OnInit {
     this.utility.spinner.show();
     this.utility.http.get(
       this.utility.baseUrl + 'report/exportGetReportDataPass?lineID=' +
-       this.sReportDataPass.lineID + '&modelName=' +
+      this.sReportDataPass.lineID + '&modelName=' +
        this.sReportDataPass.modelName + '&model=' +
        this.sReportDataPass.model + '&checkPass=' +
-       this.sReportDataPass.checkPass
+       this.sReportDataPass.checkPass + '&cDate=' +
+       this.sReportDataPass.cDate + '&cDateE=' +
+       this.sReportDataPass.cDateE
        ,
       { responseType: 'blob' })
       .subscribe((result: Blob) =>{
@@ -93,7 +94,7 @@ export class HomeComponent implements OnInit {
         const url = window.URL.createObjectURL(blob);
         const link = document.createElement('a');
         const currentTime = new Date();
-        const filename = 'Excel_NoOperationList_' + currentTime.getFullYear().toString() +
+        const filename = 'Excel_GetReportDataPass_' + currentTime.getFullYear().toString() +
           (currentTime.getMonth() + 1) + currentTime.getDate() +
           currentTime.toLocaleTimeString().replace(/[ ]|[,]|[:]/g, '').trim() + '.xlsx';
         link.href = url;

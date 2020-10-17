@@ -22,18 +22,36 @@ namespace DFPS_API.Helpers
         }
 
         public static async Task<PagedList<T>> CreateAsync(IQueryable<T> source,
-             int pageNumber, int pageSize)
+             int pageNumber, int pageSize, bool isPaging)
         {
-            var count = await source.CountAsync();
-            var items = await source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
-            return new PagedList<T>(items, count, pageNumber, pageSize);
+            if (isPaging)
+            {
+                var count = await source.CountAsync();
+                var items = await source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+                return new PagedList<T>(items, count, pageNumber, pageSize);
+            }
+            else
+            {
+                var count = await source.CountAsync();
+                var items = await source.ToListAsync();
+                return new PagedList<T>(items, count, pageNumber, pageSize);
+            }
         }
         public static PagedList<T> Create(IEnumerable<T> source,
-             int pageNumber, int pageSize)
+             int pageNumber, int pageSize, bool isPaging)
         {
-            var count =  source.Count();
-            var items =  source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
-            return new PagedList<T>(items, count, pageNumber, pageSize);
+            if (isPaging)
+            {
+                var count = source.Count();
+                var items = source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+                return new PagedList<T>(items, count, pageNumber, pageSize);
+            }
+            else
+            {
+                var count = source.Count();
+                var items = source.ToList();
+                return new PagedList<T>(items, count, pageNumber, pageSize);
+            }
         }
     }
 }

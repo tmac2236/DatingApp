@@ -24,6 +24,7 @@ export class GetNoOperationListComponent implements OnInit {
   }
 
   export() {
+    this.utility.spinner.show();
     this.utility.http
       .get(this.utility.baseUrl + 'report/exportGetNoOperaionList?startDate=' + this.startDate, {
         responseType: 'blob',
@@ -31,6 +32,7 @@ export class GetNoOperationListComponent implements OnInit {
       .subscribe((result: Blob) => {
         if (result.type !== 'application/xlsx') {
           alert(result.type);
+          this.utility.spinner.hide();
         }
         const blob = new Blob([result]);
         const url = window.URL.createObjectURL(blob);
@@ -50,6 +52,7 @@ export class GetNoOperationListComponent implements OnInit {
         link.setAttribute('download', filename);
         document.body.appendChild(link);
         link.click();
+        this.utility.spinner.hide();
       });
   }
   search() {

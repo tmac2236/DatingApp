@@ -64,11 +64,11 @@
               </tbody>
             </table>
             <div class ="d-flex justify-content-center">
-              <pagination 
+              <pagination *ngIf="this.sAttendance.isPaging" 
                 [boundaryLinks]="true" 
-                [totalItems]="pagination.totalItems"
-                [itemsPerPage]="pagination.itemsPerPage"
-                [(ngModel)]="pagination.currentPage"
+                [totalItems]="sAttendance.totalItems"
+                [itemsPerPage]="sAttendance.itemsPerPage"
+                [(ngModel)]="sAttendance.currentPage"
                 (pageChanged) = "pageChangeds($event)"
                 previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
               </pagination>

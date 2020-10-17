@@ -10,5 +10,8 @@ namespace DFPS_API.Helpers
             get { return pageSize; }
             set { pageSize = (value > MaxPageSize) ? MaxPageSize : value; }
         }
+
+        public string OrderBy { get; set; }
+        public bool IsPaging { get; set; }
     }
 }

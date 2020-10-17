@@ -28,6 +28,7 @@ namespace DFPS_API.Data.Repository
             var data = await _context.GetNoOperationDto
             .FromSqlRaw("EXECUTE dbo.GetNoOperationList_APP @StartDate", pc.ToArray())
             .ToListAsync();
+            data = data.OrderBy(x =>x.StartDate).ToList();
             return data;
 
         }
@@ -41,16 +42,24 @@ namespace DFPS_API.Data.Repository
             var data = await _context.GetChangeWorkerDto
               .FromSqlRaw("EXECUTE dbo.QueryChangeWorker_ @StartDate, @EndDate, @TeamID", pc.ToArray())
               .ToListAsync();
-
+            data = data.OrderBy(x =>x.StartDate).ToList();
             return data;
         }
-        public PagedList<AttendanceDto> GetAttendances(PaginationParams paginationParams)
+        public PagedList<AttendanceDto> GetAttendances(SAttendanceDto sAttendanceDto)
         {
             var data = _context.GetAttendanceDto
-                   .FromSqlRaw("EXECUTE dbo.AttendanceList_").AsEnumerable().Where(x => x.Building == "E").ToList();
-            return PagedList<AttendanceDto>.Create(data, paginationParams.PageNumber, paginationParams.PageSize);
+                   .FromSqlRaw("EXECUTE dbo.AttendanceList_").AsEnumerable().OrderBy( x=>x.WorkDate ).ToList();
+            return PagedList<AttendanceDto>
+                .Create(data, sAttendanceDto.PageNumber, sAttendanceDto.PageSize, sAttendanceDto.IsPaging);
         }
-
+        public async Task<IEnumerable<AttendanceDto>> GetAttendances()
+        {
+            var data = await _context.GetAttendanceDto
+                   .FromSqlRaw("EXECUTE dbo.AttendanceList_").ToListAsync();
+            data = data.OrderBy(x =>x.WorkDate).ToList();
+            
+            return data;
+        }
 
         public async Task<IEnumerable<PDModelDto>> GetPDModels(SPDModelDto sPDModelDto)
         {
@@ -62,6 +71,7 @@ namespace DFPS_API.Data.Repository
             var data = await _context.GetPDModelDto
                    .FromSqlRaw("EXECUTE dbo.QueryPDModel_ @StartDate, @EndDate, @TeamID", pc.ToArray())
                    .ToListAsync();
+            data = data.OrderBy(x =>x.StartDate).ToList();
 
             return data;
         }
@@ -98,7 +108,7 @@ namespace DFPS_API.Data.Repository
                    .FromSqlRaw("EXECUTE dbo.GetReportData_ @cdate, @cdate_e, @Line_ID, @Model_Name, @Model, @ProdNum, @ProdName_vn, @ProdName_tw,@WorkerNum, @WorkerName, @WorkLevel, @WorkLevel2, @CheckPass", pc.ToArray())
                    .ToListAsync();
                 }
-
+                data = data.OrderBy(x =>x.CDate).ThenBy(x=>x.Maker).ToList();
             }
             catch (Exception ex)
             {
