@@ -16,12 +16,12 @@ import { P500Component } from './views/report/error/500.component';
 export const appRoutes: Routes = [
   { path: '', component: GetReportDataPassComponent }, // 首頁
   {
-    path: '', // localhost:4200/''members
+    path: 'members', // localhost:4200/members
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
     children: [
       {
-        path: 'members',
+        path: '', // localhost:4200/members
         component: MemeberListComponent,
       },
       {
@@ -29,7 +29,7 @@ export const appRoutes: Routes = [
         component: MemberDetailComponent,
       },
       {
-        path: 'member/edit',
+        path: 'edit', // localhost:4200/members/edit
         component: MemberEditComponent,
         canDeactivate: [PreventUnsavedChanges],
       },
