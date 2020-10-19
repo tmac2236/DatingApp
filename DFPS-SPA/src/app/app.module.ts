@@ -9,33 +9,31 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 
-import { ErrorInterceptorProvider } from './_services/error.interceptor';
+import { ErrorInterceptorProvider } from 'src/app/core/_services/error.interceptor';
 import { appRoutes } from './routes';
-import { AuthGuard } from './_guards/auth.guard';
-import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
+import { AuthGuard } from 'src/app/core/_guards/auth.guard';
+import { PreventUnsavedChanges } from 'src/app/core/_guards/prevent-unsaved-changes.guard';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
-import { ListsComponent } from './lists/lists.component';
-import { MemeberListComponent } from './members/memeber-list/memeber-list.component';
-import { MemberCardComponent } from './members/member-card/member-card.component';
-import { MemberDetailComponent } from './members/member-detail/member-detail.component';
-import { MemberEditComponent } from './members/member-edit/member-edit.component';
-import { MessagesComponent } from './messages/messages.component';
-import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
-import { QueryPdModelComponent } from './report/query-pd-model/query-pd-model.component';
-import { GetNoOperationListComponent } from './report/get-no-operation-list/get-no-operation-list.component';
-import { QueryChangeWorkerComponent } from './report/query-change-worker/query-change-worker.component';
-import { AttendanceListComponent } from './report/attendance-list/attendance-list.component';
+import { MemeberListComponent } from './views/members/memeber-list/memeber-list.component';
+import { MemberCardComponent } from './views/members/member-card/member-card.component';
+import { MemberDetailComponent } from './views/members/member-detail/member-detail.component';
+import { MemberEditComponent } from './views/members/member-edit/member-edit.component';
+import { PhotoEditorComponent } from './views/members/photo-editor/photo-editor.component';
+import { QueryPdModelComponent } from './views/report/query-pd-model/query-pd-model.component';
+import { GetNoOperationListComponent } from './views/report/get-no-operation-list/get-no-operation-list.component';
+import { QueryChangeWorkerComponent } from './views/report/query-change-worker/query-change-worker.component';
+import { AttendanceListComponent } from './views/report/attendance-list/attendance-list.component';
 
-import { ReportService } from './_services/report.service';
-import { AuthService } from './_services/auth.service';
-import { UserService } from './_services/user.service';
-import { AlertifyService } from './_services/alertify.service';
+import { ReportService } from 'src/app/core/_services/report.service';
+import { AuthService } from 'src/app/core/_services/auth.service';
+import { UserService } from 'src/app/core/_services/user.service';
+import { AlertifyService } from 'src/app/core/_services/alertify.service';
 import { DatePipe } from '@angular/common';
-import { GetReportDataPassComponent } from './report/get-report-data-pass/get-report-data-pass.component';
-import { P404Component } from './report/error/404.component';
-import { P500Component } from './report/error/500.component';
+import { GetReportDataPassComponent } from './views/report/get-report-data-pass/get-report-data-pass.component';
+import { P404Component } from './views/report/error/404.component';
+import { P500Component } from './views/report/error/500.component';
 
 
 
@@ -54,8 +52,6 @@ export function tokenGetter() {
     MemberCardComponent,
     MemberDetailComponent,
     MemberEditComponent,
-    ListsComponent,
-    MessagesComponent,
     PhotoEditorComponent,
     QueryPdModelComponent,
     GetNoOperationListComponent,

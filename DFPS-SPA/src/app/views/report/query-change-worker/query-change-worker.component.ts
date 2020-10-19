@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { Utility } from 'src/app/utility/utility';
-import { QueryPDModel } from 'src/app/_models/query-pd-model';
-import { SQueryPDModel } from 'src/app/_models/s-query-pd-model';
-import { ReportService } from 'src/app/_services/report.service';
+import { Utility } from 'src/app/core/utility/utility';
+import { ChangeWorker } from 'src/app/core/_models/change-worker';
+import { SQueryPDModel } from 'src/app/core/_models/s-query-pd-model';
+import { ReportService } from 'src/app/core/_services/report.service';
 import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-query-pd-model',
-  templateUrl: './query-pd-model.component.html',
-  styleUrls: ['./query-pd-model.component.scss'],
+  selector: 'app-query-change-worker',
+  templateUrl: './query-change-worker.component.html',
+  styleUrls: ['./query-change-worker.component.scss'],
 })
-export class QueryPdModelComponent implements OnInit {
-  qeryPDModel: QueryPDModel[];
+export class QueryChangeWorkerComponent implements OnInit {
+  
+  changeWorkers: ChangeWorker[];
   sQueryPDModel = new SQueryPDModel();
   constructor(
     private utility: Utility,
@@ -27,9 +28,9 @@ export class QueryPdModelComponent implements OnInit {
   search() {
     this.clean();
     this.utility.spinner.show();
-    this.reportService.getPDModel(this.sQueryPDModel).subscribe(
+    this.reportService.getChangeWorkers(this.sQueryPDModel).subscribe(
       (res) => {
-        this.qeryPDModel = res;
+        this.changeWorkers = res;
         this.utility.spinner.hide();
       },
       (error) => {
@@ -41,7 +42,7 @@ export class QueryPdModelComponent implements OnInit {
   export() {
     this.utility.spinner.show();
     this.utility.http.get(
-      this.utility.baseUrl + 'report/exportGetQueryPDModel?startDate=' +
+      this.utility.baseUrl + 'report/exportGetChangeWorkers?startDate=' +
       this.sQueryPDModel.startDate + '&endDate=' +
       this.sQueryPDModel.endDate + '&teamID=' +
       this.sQueryPDModel.teamID
@@ -56,7 +57,7 @@ export class QueryPdModelComponent implements OnInit {
         const url = window.URL.createObjectURL(blob);
         const link = document.createElement('a');
         const currentTime = new Date();
-        const filename = 'Excel_GetQueryPDModel_' + currentTime.getFullYear().toString() +
+        const filename = 'Excel_GetChangeWorkers_' + currentTime.getFullYear().toString() +
           (currentTime.getMonth() + 1) + currentTime.getDate() +
           currentTime.toLocaleTimeString().replace(/[ ]|[,]|[:]/g, '').trim() + '.xlsx';
         link.href = url;
@@ -66,9 +67,8 @@ export class QueryPdModelComponent implements OnInit {
         this.utility.spinner.hide();
       }
     );
-  }
-
+  }  
   clean(){
-    this.qeryPDModel =[];
+    this.changeWorkers =[];
   }
 }

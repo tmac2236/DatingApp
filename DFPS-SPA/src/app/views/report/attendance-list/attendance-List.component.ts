@@ -1,11 +1,9 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Utility } from 'src/app/utility/utility';
-import { Attendance } from 'src/app/_models/attendance';
-import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
-import { SAttendance } from 'src/app/_models/s_attendance';
-import { AlertifyService } from 'src/app/_services/alertify.service';
-import { ReportService } from 'src/app/_services/report.service';
+import { Utility } from 'src/app/core/utility/utility';
+import { Attendance } from 'src/app/core/_models/attendance';
+import { PaginatedResult, Pagination } from 'src/app/core/_models/pagination';
+import { SAttendance } from 'src/app/core/_models/s_attendance';
+import { ReportService } from 'src/app/core/_services/report.service';
 import { Router } from '@angular/router';
 
 @Component({

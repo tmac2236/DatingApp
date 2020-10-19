@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { PlanWorker } from '../../_models/plan-worker';
-import { ReportDataPass } from '../../_models/report-data-pass';
-import { ReportService } from '../../_services/report.service';
-import { SReportDataPass } from '../../_models/s_report-data-pass';
+import { PlanWorker } from 'src/app/core/_models/plan-worker';
+import { ReportDataPass } from 'src/app/core/_models/report-data-pass';
+import { ReportService } from 'src/app/core/_services/report.service';
+import { SReportDataPass } from 'src/app/core/_models/s_report-data-pass';
+import { Utility } from 'src/app/core/utility/utility';
 
-import { Utility } from '../../utility/utility';
 import { DatePipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-home',

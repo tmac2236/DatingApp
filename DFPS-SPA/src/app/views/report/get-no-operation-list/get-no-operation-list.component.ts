@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Utility } from 'src/app/utility/utility';
-import { NoOperationList } from 'src/app/_models/no-operation-list';
-import { ReportService } from 'src/app/_services/report.service';
+import { Utility } from 'src/app/core/utility/utility';
+import { NoOperationList } from 'src/app/core/_models/no-operation-list';
+import { ReportService } from 'src/app/core/_services/report.service';
 import { DatePipe } from '@angular/common';
 
 @Component({

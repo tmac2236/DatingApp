@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { Photo } from 'src/app/_models/photo';
+import { Photo } from 'src/app/core/_models/photo';
 
 @Component({
   selector: 'app-photo-editor',

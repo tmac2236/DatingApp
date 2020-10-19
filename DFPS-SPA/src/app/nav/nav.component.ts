@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../_services/auth.service';
-import { AlertifyService } from '../_services/alertify.service';
+
 import { Router } from '@angular/router';
 import { BsDropdownConfig } from 'ngx-bootstrap/dropdown';
+import { AlertifyService } from '../core/_services/alertify.service';
+import { AuthService } from '../core/_services/auth.service';
 
 
 @Component({
