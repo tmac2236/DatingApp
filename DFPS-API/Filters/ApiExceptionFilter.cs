@@ -28,7 +28,7 @@ namespace DFPS_API.Filters
             }
             else if (context.Exception is UnauthorizedAccessException)
             {
-                apiError = new ApiError("Unauthorized Access");
+                apiError = new ApiError("Unauthorized Access(Http401)");
                 context.HttpContext.Response.StatusCode = 401;
 
                 // handle logging here
@@ -36,7 +36,7 @@ namespace DFPS_API.Filters
             else
             {
                 // Unhandled errors
-                var msg = " ************** An Unhandled Error occurred. ************** ";
+                var msg = " ************** An Unhandled Error occurred(Http500). ************** ";
 #if !DEBUG     
                 string stack = null;
 #else

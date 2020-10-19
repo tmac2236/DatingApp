@@ -5,7 +5,7 @@
         <div class="card-header">
           <strong>Query_PD_Model(派工查詢)</strong>
         </div>
-        <form class="form-horizontal" #addAuditTypeForm="ngForm">
+        <form class="form-horizontal" #addQueryPDForm="ngForm">
           <div class="card-body">
             <div class="form-group row">
               <div class="col-md-12">
@@ -39,6 +39,7 @@
                     class="btn btn-primary mr-2"
                     type="button"
                     (click)="search()"
+                    [disabled] ="!addQueryPDForm.valid"
                   >
                     Seacrch
                   </button>
@@ -46,6 +47,7 @@
                   class="btn btn-primary mr-2"
                   type="button"
                   (click)="export()"
+                  [disabled] = "!addQueryPDForm.valid"
                 >
                   Export
                 </button>                 

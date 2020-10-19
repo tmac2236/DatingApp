@@ -5,7 +5,7 @@
         <div class="card-header">
           <strong>Query Change Worker(換人查詢)</strong>
         </div>
-        <form class="form-horizontal" #addAuditTypeForm="ngForm">
+        <form class="form-horizontal" #addQueryCWForm="ngForm">
           <div class="card-body">
             <div class="form-group row">
               <div class="col-md-12">
@@ -26,18 +26,19 @@
                     name="EndDate"
                     [(ngModel)]="sQueryPDModel.endDate"
                   />
-                  <label class="col-form-label mr-2">棟別</label>
+                  <label class="col-form-label mr-2">線別</label>
                   <input
                     class="col-form-label mr-2"
                     type="text"
                     placeholder="TeamID"
                     name="TeamID"
                     [(ngModel)]="sQueryPDModel.teamID"
+                    required
                   />
-                  <button class="btn btn-primary mr-2" type="button" (click)="search()">
+                  <button class="btn btn-primary mr-2" type="button" (click)="search()" [disabled]="!addQueryCWForm.valid">
                     Seacrch
                   </button>
-                  <button class="btn btn-primary mr-2" type="button" (click)="export()">
+                  <button class="btn btn-primary mr-2" type="button" (click)="export()" [disabled]="!addQueryCWForm.valid">
                   Export
                 </button>
                 </div>

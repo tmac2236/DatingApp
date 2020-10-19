@@ -5,11 +5,11 @@
         <div class="card-header">
           <strong>GetReportData_Pass(人員點檢紀錄)</strong>
         </div>
-        <form class="form-horizontal" #addAuditTypeForm="ngForm">
+        <form class="form-horizontal" #addQueryReportDataForm="ngForm">
           <div class="card-body">
             <div class="form-group row">
               <div class="col-md-12">
-                <div>
+                <div class="col">
                   <label class="col-form-label mr-2">點檢日期(起)</label>
                   <input
                     class="col-form-label mr-2"
@@ -20,11 +20,11 @@
                   />
                   <label class="col-form-label mr-2">點檢日期(迄)</label>
                   <input
-                  class="col-form-label mr-2"
-                  type="date"
-                  placeholder="EndDate"
-                  name="cDateE"
-                  [(ngModel)]="sReportDataPass.cDateE"
+                    class="col-form-label mr-2"
+                    type="date"
+                    placeholder="EndDate"
+                    name="cDateE"
+                    [(ngModel)]="sReportDataPass.cDateE"
                   />
                   <label class="col-form-label mr-2">線別</label>
                   <input
@@ -33,6 +33,7 @@
                     placeholder="Lean"
                     name="Lean"
                     [(ngModel)]="sReportDataPass.lineID"
+                    required
                   />
                   <label class="col-form-label mr-2">鞋名</label>
                   <input
@@ -42,6 +43,8 @@
                     name="modelName"
                     [(ngModel)]="sReportDataPass.modelName"
                   />
+                </div>
+                <div class="col" style ="margin-top:10px;">
                   <label class="col-form-label mr-2">鞋型</label>
                   <input
                     class="col-form-label mr-2"
@@ -63,6 +66,7 @@
                     class="btn btn-primary mr-2"
                     type="button"
                     (click)="search()"
+                    [disabled]="!addQueryReportDataForm.valid"
                   >
                     Seacrch
                   </button>
@@ -70,6 +74,7 @@
                     class="btn btn-primary mr-2"
                     type="button"
                     (click)="export()"
+                    [disabled]="!addQueryReportDataForm.valid"
                   >
                     Export
                   </button>
@@ -121,7 +126,7 @@
                     <td>{{ item.workerName }}</td>
                     <td>{{ item.workLevel }}</td>
                     <td>{{ item.workLevel2 }}</td>
-                    <td>{{ item.editDate | date: "yyyy/MM/dd, h:mm:ss a"}}</td>
+                    <td>{{ item.editDate | date: "yyyy/MM/dd, h:mm:ss a" }}</td>
                   </tr>
                 </ng-container>
               </tbody>

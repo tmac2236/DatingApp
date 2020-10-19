@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { PlanWorker } from '../_models/plan-worker';
-import { ReportDataPass } from '../_models/report-data-pass';
-import { ReportService } from '../_services/report.service';
-import { SReportDataPass } from '../_models/s_report-data-pass';
+import { PlanWorker } from '../../_models/plan-worker';
+import { ReportDataPass } from '../../_models/report-data-pass';
+import { ReportService } from '../../_services/report.service';
+import { SReportDataPass } from '../../_models/s_report-data-pass';
 
-import { Utility } from '../utility/utility';
+import { Utility } from '../../utility/utility';
 import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  templateUrl: './get-report-data-pass.component.html',
+  styleUrls: ['./get-report-data-pass.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class GetReportDataPassComponent implements OnInit {
   registerMode = false;
   planWorker: PlanWorker[];
   reportDataPass: ReportDataPass[];

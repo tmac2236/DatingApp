@@ -6,6 +6,7 @@ import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
 import { SAttendance } from 'src/app/_models/s_attendance';
 import { AlertifyService } from 'src/app/_services/alertify.service';
 import { ReportService } from 'src/app/_services/report.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-attendance-list',
@@ -16,7 +17,7 @@ export class AttendanceListComponent implements OnInit {
   attendance: Attendance[];
   sAttendance: SAttendance = new SAttendance();
 
-  constructor(private utility: Utility, private reportService: ReportService) {}
+  constructor(private utility: Utility, private reportService: ReportService, private router: Router) {}
 
   ngOnInit() {
     // this.sAttendance.isPaging = true;
@@ -36,6 +37,8 @@ export class AttendanceListComponent implements OnInit {
       },
       (error) => {
         this.utility.spinner.hide();
+        let is500 = error.includes('(Http500)');
+        this.router.navigate(['P500']);
         this.utility.alertify.error(error);
       }
     );

@@ -17,7 +17,6 @@ import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { ListsComponent } from './lists/lists.component';
-import { HomeComponent } from './report/home.component';
 import { MemeberListComponent } from './members/memeber-list/memeber-list.component';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
@@ -34,6 +33,9 @@ import { AuthService } from './_services/auth.service';
 import { UserService } from './_services/user.service';
 import { AlertifyService } from './_services/alertify.service';
 import { DatePipe } from '@angular/common';
+import { GetReportDataPassComponent } from './report/get-report-data-pass/get-report-data-pass.component';
+import { P404Component } from './report/error/404.component';
+import { P500Component } from './report/error/500.component';
 
 
 
@@ -47,7 +49,7 @@ export function tokenGetter() {
   declarations: [
     AppComponent,
     NavComponent,
-    HomeComponent,
+    GetReportDataPassComponent,
     MemeberListComponent,
     MemberCardComponent,
     MemberDetailComponent,
@@ -59,6 +61,8 @@ export function tokenGetter() {
     GetNoOperationListComponent,
     QueryChangeWorkerComponent,
     AttendanceListComponent,
+    P404Component,
+    P500Component,
   ],
   imports: [
     NgxSpinnerModule,
