@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFPS.API.Data.Interface;
 using DFPS.API.Models;
+using DFPS_API.Data.Interface;
+using DFPS_API.Data.Repository;
 using Microsoft.EntityFrameworkCore;
 
 namespace DFPS.API.Data.Repository
 {
-    public class UserDAO : IUserDAO
+    public class UserDAO : CommonDAO<User>, IUserDAO
     {
-        private readonly DataContext _context;
-        public UserDAO(DataContext context)
+        public UserDAO(DataContext context): base(context)
         {
-            _context = context;
-
         }
         public async Task<User> Login(string account, string password)
         {
@@ -71,33 +70,6 @@ namespace DFPS.API.Data.Repository
 
             return false;
 
-        }
-
-        public void Add<T>(T entity) where T : class
-        {
-            _context.Add(entity);
-        }
-
-        public void Delete<T>(T entity) where T : class
-        {
-            _context.Remove(entity);
-        }
-
-        public async Task<User> GetUser(int id)
-        {
-            var user = await _context.User.FirstOrDefaultAsync(x => x.Id == id);
-            return user;
-        }
-
-        public async Task<IEnumerable<User>> GetUsers()
-        {
-            var users = await _context.User.ToListAsync();
-            return users;
-        }
-
-        public async Task<bool> SaveAll()
-        {
-            return await _context.SaveChangesAsync() > 0;
         }
 
     }

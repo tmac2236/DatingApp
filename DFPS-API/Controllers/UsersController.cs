@@ -5,37 +5,37 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DFPS.API.Data.Interface;
 using DFPS.API.DTOs;
+using DFPS_API.Services.Implement;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DFPS.API.Controllers
 {
     [Authorize]
     public class UsersController : ApiController
     {
-        private readonly IUserDAO _userDAO;
         private readonly IMapper _mapper;
-        public UsersController(IUserDAO userDAO, IMapper mapper)
+        private readonly IAuthService _authService;
+        public UsersController(IAuthService authService, IMapper mapper)
         {
+            _authService = authService;
             _mapper = mapper;
-            _userDAO = userDAO;
-
         }
 
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
-            var users = await _userDAO.GetUsers();
-
-            var usersToReturn = _mapper.Map<IEnumerable<UserForListDto>>(users);
+            var users = await _authService.GetAllAsync();
+            var usersToReturn = _mapper.Map<IEnumerable<UserDto>>(users);
 
             return Ok(usersToReturn);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUser(int id)
+        public IActionResult GetUser(int id)
         {
-            var user = await _userDAO.GetUser(id);
+            var user = _authService.GetById(id);
             var userToReturn = _mapper.Map<UserForDetailedDto>(user);
             return Ok(userToReturn);
         }
@@ -47,11 +47,11 @@ namespace DFPS.API.Controllers
             if (userForUpdateDto.Id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-            var userFromDAO = await _userDAO.GetUser(userForUpdateDto.Id);
+            var userFromDAO =  _authService.GetById(userForUpdateDto.Id);
 
             _mapper.Map(userForUpdateDto, userFromDAO);
 
-            if (await _userDAO.SaveAll())
+            if (await _authService.Update(userFromDAO))
                 return NoContent();
 
             throw new Exception($"UpdateUser API Error On Server");

@@ -12,6 +12,7 @@ namespace DFPS.API.Helpers
             CreateMap<User, UserForListDto>();
             CreateMap<User, UserForDetailedDto>();
             CreateMap<UserForUpdateDto, User>();
+            CreateMap<User, UserDto>();
         }
     }
 }

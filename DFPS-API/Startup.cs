@@ -24,6 +24,7 @@ using DFPS.API.Helpers;
 using AutoMapper;
 using DFPS_API.Data.Repository;
 using DFPS_API.Filters;
+using DFPS_API.Services.Implement;
 
 namespace DFPS.API
 {
@@ -60,6 +61,10 @@ namespace DFPS.API
             //DAO
             services.AddScoped<IUserDAO, UserDAO>();
             services.AddScoped<IReporDAO, ReporDAO>();
+
+            //Service
+            services.AddScoped<IAuthService, AuthService>();
+
             //auth
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -74,7 +79,7 @@ namespace DFPS.API
                     };
                 });
             //log
-            services.AddScoped<ApiExceptionFilter>();    
+            services.AddScoped<ApiExceptionFilter>();
 
         }
 
