@@ -75,6 +75,8 @@ export function tokenGetter() {
         tokenGetter: tokenGetter,
         allowedDomains: ['localhost:5000'],
         disallowedRoutes: ['localhost:5000/api/auth'],
+        //allowedDomains: ['http://10.4.0.74:6969'],
+        //disallowedRoutes: ['http://10.4.0.74:6969/api/auth'],
       },
     }),
   ],
