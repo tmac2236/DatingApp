@@ -15,6 +15,6 @@ export class P404Component implements OnInit{
     }, 5000);
   }
   redirtct(){
-    this.router.navigate(['/report/attendanceList']);
+    this.router.navigate(['']);
   }
 }

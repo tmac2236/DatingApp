@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -34,10 +35,7 @@ import { DatePipe } from '@angular/common';
 import { GetReportDataPassComponent } from './views/report/get-report-data-pass/get-report-data-pass.component';
 import { P404Component } from './views/report/error/404.component';
 import { P500Component } from './views/report/error/500.component';
-
-
-
-
+import { HomePageComponent } from './views/home-page/home-page.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -59,6 +57,7 @@ export function tokenGetter() {
     AttendanceListComponent,
     P404Component,
     P500Component,
+    HomePageComponent,
   ],
   imports: [
     NgxSpinnerModule,
@@ -73,8 +72,8 @@ export function tokenGetter() {
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        allowedDomains: ['localhost:5000'],
-        disallowedRoutes: ['localhost:5000/api/auth'],
+        allowedDomains: ['http://localhost:5000'],
+        disallowedRoutes: ['http://localhost:5000/api/auth'],
         //allowedDomains: ['http://10.4.0.74:6969'],
         //disallowedRoutes: ['http://10.4.0.74:6969/api/auth'],
       },
@@ -89,7 +88,10 @@ export function tokenGetter() {
     PreventUnsavedChanges,
     ReportService,
     DatePipe,
-    
+    {
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy,
+    },
   ],
   bootstrap: [AppComponent],
 })

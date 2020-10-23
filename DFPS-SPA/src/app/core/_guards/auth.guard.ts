@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate {
       return true;
     }
     this.alertify.error('Please login in first !!!');
-    this.router.navigate(['/report/attendanceList']); //redirect to login in
+    this.router.navigate(['']); //redirect to login in
     return false;
   }
 }

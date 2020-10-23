@@ -12,11 +12,12 @@ import { QueryChangeWorkerComponent } from './views/report/query-change-worker/q
 import { GetReportDataPassComponent } from './views/report/get-report-data-pass/get-report-data-pass.component';
 import { P404Component } from './views/report/error/404.component';
 import { P500Component } from './views/report/error/500.component';
+import { HomePageComponent } from './views/home-page/home-page.component';
 
 export const appRoutes: Routes = [
-  { path: '', component: GetReportDataPassComponent }, // 首頁
+  { path: '', component: HomePageComponent }, // 首頁
   {
-    path: 'members', // localhost:4200/members
+    path: 'member', // localhost:4200/members
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
     children: [
@@ -25,7 +26,7 @@ export const appRoutes: Routes = [
         component: MemeberListComponent,
       },
       {
-        path: 'members/:id',
+        path: 'member/:id',
         component: MemberDetailComponent,
       },
       {
@@ -38,6 +39,7 @@ export const appRoutes: Routes = [
   {
     path: '', // localhost:4200/''
     runGuardsAndResolvers: 'always',
+    canActivate: [AuthGuard],
     children: [
       { path: 'report/getReportDataPass', component: GetReportDataPassComponent },
       { path: 'report/queryPDModel', component: QueryPdModelComponent },
