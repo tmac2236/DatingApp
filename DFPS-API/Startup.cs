@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Text;
 using DFPS.API.Data;
 using DFPS.API.Data.Interface;
@@ -9,13 +5,10 @@ using DFPS.API.Data.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
@@ -25,6 +18,7 @@ using AutoMapper;
 using DFPS_API.Data.Repository;
 using DFPS_API.Filters;
 using DFPS_API.Services.Implement;
+using DFPS_API.Data.Repository.Interfaces;
 
 namespace DFPS.API
 {
@@ -43,6 +37,7 @@ namespace DFPS.API
             //security
             services.AddCors();
             services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DFPSConnection")));
+            services.AddDbContext<MesDataContext> (options => options.UseSqlServer (Configuration.GetConnectionString ("MesConnection")));
             services.AddControllers();
             /*
             services.AddControllersWithViews()
@@ -61,6 +56,7 @@ namespace DFPS.API
             //DAO
             services.AddScoped<IUserDAO, UserDAO>();
             services.AddScoped<IReporDAO, ReporDAO>();
+            services.AddScoped<IMesUserDAO, MesUserDAO>();
 
             //Service
             services.AddScoped<IAuthService, AuthService>();
